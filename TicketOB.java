@@ -1,8 +1,7 @@
 /**
  * Created by wojni on 11.03.2016.
  */
-public class TicketOB {
-    Long id;
+public class TicketOB extends BaseOB{
     TicketType typ;
     String description;
     PriorityOB priority;
@@ -10,9 +9,8 @@ public class TicketOB {
 
 
 
-    public TicketOB(Long id, TicketType typ, String description, PriorityOB priority, ProjectOB project)
+    public TicketOB(TicketType typ, String description, PriorityOB priority, ProjectOB project)
     {
-        this.id = id;
         this.typ = typ;
         this.description = description;
         this.priority = priority;

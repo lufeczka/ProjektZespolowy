@@ -3,8 +3,7 @@ import java.util.Date;
 /**
  * Created by wojni on 10.03.2016.
  */
-public class HistoryOB {
-    Long id;
+public class HistoryOB extends BaseOB {
     HistoryType typ;
     TicketOB ticket;
     UserOB user;
@@ -12,9 +11,8 @@ public class HistoryOB {
     Date date;
 
 
-    public HistoryOB(Long id, HistoryType typ, TicketOB ticket, UserOB user, String description, Date date)
+    public HistoryOB(HistoryType typ, TicketOB ticket, UserOB user, String description, Date date)
     {
-        this.id = id;
         this.typ = typ;
         this.ticket = ticket;
         this.user = user;

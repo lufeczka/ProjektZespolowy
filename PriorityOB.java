@@ -1,16 +1,22 @@
 /**
  * Created by wojni on 10.03.2016.
  */
-public class PriorityOB {
-    Long id;
+public class PriorityOB extends BaseOB{
     String name;
     String responseTime;
 
 
-    public PriorityOB(Long id, String name, String responseTime)
+    public PriorityOB(String name, String responseTime)
     {
-        this.id = id;
         this.name = name;
         this.responseTime = responseTime;
     }
+
+    //getters
+    public String getPriorityName () {return name;}
+    public String getPriorityResponseTime () {return responseTime;}
+
+    //setters
+    public void setPriorityName (String name) {this.name = name;}
+    public void setPriorityResponseTime (String response) {this.responseTime = response;}
 }

@@ -1,14 +1,12 @@
 /**
  * Created by wojni on 10.03.2016.
  */
-public class RoleOB {
-    Long id;
+public class RoleOB extends BaseOB{
     String name;
     UserOB user;
 
-    public RoleOB(Long id, String Name, UserOB User)
+    public RoleOB(String Name, UserOB User)
     {
-        this.id = id;
         this.name = Name;
         this.user = User;
     }

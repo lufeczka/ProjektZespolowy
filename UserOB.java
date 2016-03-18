@@ -4,8 +4,7 @@ import java.util.List;
 /**
  * Created by wojni on 10.03.2016.
  */
-public class UserOB {
-    Long id;
+public class UserOB extends BaseOB {
     String name;
     String surname;
     String email;
@@ -15,9 +14,9 @@ public class UserOB {
     Boolean type; // 1 - pracownik wewnetrzny, 0 - pracownik zewnetrzny;
     List<RoleOB> roles = new ArrayList<>();
     List<ProjectOB> projects = new ArrayList<>();
-    public UserOB(Long id, String name, String surname, String email, String login, String md5pass, Boolean active, Boolean type)
+
+    public UserOB(String name, String surname, String email, String login, String md5pass, Boolean active, Boolean type)
     {
-        this.id = id;
         this.name = name;
         this.surname = surname;
         this.email = email;
@@ -45,7 +44,6 @@ public class UserOB {
     }
 
     //getters
-    public Long getUserID (){ return id;}
     public String getUserName () { return name;}
     public String getUserSurname () { return surname;}
     public String getUserLogin () { return login;}
@@ -53,7 +51,6 @@ public class UserOB {
     public Boolean getUserType () { return type;}
 
     //setters
-    public void setUserID (Long id) { this.id = id;}
     public void setUserName (String name) { this.name = name;}
     public void setUserSurname (String surname) { this.surname = surname;}
     public void setUserLogin (String login) { this.login = login;}
