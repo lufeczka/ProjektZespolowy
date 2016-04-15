@@ -17,9 +17,7 @@ public class ProjectOB extends BaseOB{
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name ="PRIORITY_ID", referencedColumnName = "ID")
     PriorityOB priority;
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name ="USER_ID",referencedColumnName = "ID")
-    List<UserOB> user;
+
     public ProjectOB() {
     }
 
@@ -31,43 +29,5 @@ public class ProjectOB extends BaseOB{
         this.priority = priority;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescritpion() {
-        return descritpion;
-    }
-
-    public void setDescritpion(String descritpion) {
-        this.descritpion = descritpion;
-    }
-
-    public String getVersion() {
-        return version;
-    }
-
-    public void setVersion(String version) {
-        this.version = version;
-    }
-
-    public PriorityOB getPriority() {
-        return priority;
-    }
-
-    public void setPriority(PriorityOB priority) {
-        this.priority = priority;
-    }
-
-    public List<UserOB> getUser() {
-        return user;
-    }
-
-    public void setUser(List<UserOB> user) {
-        this.user = user;
-    }
+    
 }

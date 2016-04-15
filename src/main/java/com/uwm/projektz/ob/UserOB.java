@@ -20,7 +20,7 @@ public class UserOB extends BaseOB {
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "GROUP_ID", referencedColumnName = "ID")
     List<GroupOB> groups = new ArrayList<>();
-    @OneToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "PROJECT_ID", referencedColumnName = "ID")
     List<ProjectOB> projects = new ArrayList<>();
 
