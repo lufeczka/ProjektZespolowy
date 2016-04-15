@@ -28,6 +28,4 @@ public class ProjectOB extends BaseOB{
         this.version = version;
         this.priority = priority;
     }
-
-    
 }
