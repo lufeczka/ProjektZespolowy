@@ -1,22 +1,23 @@
 package com.uwm.projektz.ob;
+
+import com.uwm.projektz.enums.TicketType;
+
+import javax.persistence.*;
+
+
 /**
  * Created by wojni on 11.03.2016.
  */
-public class InsideTicketOB extends BaseOB {
-    TicketType typ;
-    String description;
-    PriorityOB priority;
-    ProjectOB project;
-    TicketOB Ticket;
+@Entity
+@Table(name = "inside_ticets")
+@SequenceGenerator(initialValue = 1,name = "SEQ",sequenceName = "GEN_INSIDE_TICKET_ID")
+public class InsideTicketOB extends TicketOB {
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "OUTSIDE_TICET_ID", referencedColumnName = "ID")
+    OutsideTicetOB Ticket;
 
-
-
-    public InsideTicketOB(TicketType typ, String description, PriorityOB priority, ProjectOB project, TicketOB Ticket)
-    {
-        this.typ = typ;
-        this.description = description;
-        this.priority = priority;
-        this.project = project;
-        this.Ticket = Ticket;
+    public InsideTicketOB() {
     }
+
+
 }

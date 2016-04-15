@@ -1,7 +1,11 @@
 package com.uwm.projektz.ob;
+import javax.persistence.*;
 /**
  * Created by wojni on 10.03.2016.
  */
+@Entity
+@Table(name = "priorities")
+@SequenceGenerator(initialValue = 1,name = "SEQ",sequenceName = "GEN_PRIORITY_ID")
 public class PriorityOB extends BaseOB{
     String name;
     String responseTime;

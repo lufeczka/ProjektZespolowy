@@ -1,10 +1,14 @@
 package com.uwm.projektz.ob;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by wojni on 10.03.2016.
  */
+@Entity
+@Table(name = "users")
+@SequenceGenerator(initialValue = 1,name = "SEQ",sequenceName = "GEN_USER_ID")
 public class UserOB extends BaseOB {
     String name;
     String surname;
@@ -13,8 +17,15 @@ public class UserOB extends BaseOB {
     String md5pass;
     Boolean active;
     Boolean type; // 1 - pracownik wewnetrzny, 0 - pracownik zewnetrzny;
-    List<RoleOB> roles = new ArrayList<>();
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "GROUP_ID", referencedColumnName = "ID")
+    List<GroupOB> groups = new ArrayList<>();
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "PROJECT_ID", referencedColumnName = "ID")
     List<ProjectOB> projects = new ArrayList<>();
+
+    public UserOB() {
+    }
 
     public UserOB(String name, String surname, String email, String login, String md5pass, Boolean active, Boolean type)
     {
@@ -27,13 +38,13 @@ public class UserOB extends BaseOB {
         this.type = type;
     }
 
-    public void addRoleToUser(UserOB userOB, RoleOB rola)
+    public void addRoleToUser(UserOB userOB, GroupOB rola)
     {
-        userOB.roles.add(rola);
+        userOB.groups.add(rola);
     }
-    public void removeRoleFromUser(UserOB userOB, RoleOB rola)
+    public void removeRoleFromUser(UserOB userOB, GroupOB rola)
     {
-        userOB.roles.remove(rola);
+        userOB.groups.remove(rola);
     }
     public void addProjectToUser(UserOB userOB, ProjectOB projectOB)
     {

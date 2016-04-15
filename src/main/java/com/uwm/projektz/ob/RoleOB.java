@@ -1,14 +1,19 @@
 package com.uwm.projektz.ob;
-/**
- * Created by wojni on 10.03.2016.
- */
-public class RoleOB extends BaseOB{
-    String name;
-    UserOB user;
 
-    public RoleOB(String Name, UserOB User)
-    {
-        this.name = Name;
-        this.user = User;
+import javax.persistence.*;
+
+/**
+ * Created by Tomasz Komoszeski on 2016-04-15.
+ */
+@Entity
+@Table(name = "roles")
+@SequenceGenerator(initialValue = 1,name = "SEQ",sequenceName = "GEN_ROLE_ID")
+public class RoleOB extends BaseOB {
+    String name;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="GROUP_ID",referencedColumnName = "ID")
+    GroupOB group;
+
+    public RoleOB() {
     }
 }
