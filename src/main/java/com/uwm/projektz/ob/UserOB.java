@@ -38,13 +38,13 @@ public class UserOB extends BaseOB {
         this.type = type;
     }
 
-    public void addRoleToUser(UserOB userOB, GroupOB rola)
+    public void addGroupToUser(UserOB userOB, GroupOB grupa)
     {
-        userOB.groups.add(rola);
+        userOB.groups.add(grupa);
     }
-    public void removeRoleFromUser(UserOB userOB, GroupOB rola)
+    public void removeGroupFromUser(UserOB userOB, GroupOB grupa)
     {
-        userOB.groups.remove(rola);
+        userOB.groups.remove(grupa);
     }
     public void addProjectToUser(UserOB userOB, ProjectOB projectOB)
     {
