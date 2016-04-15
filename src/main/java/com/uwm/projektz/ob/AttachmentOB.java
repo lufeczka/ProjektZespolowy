@@ -1,6 +1,8 @@
 package com.uwm.projektz.ob;
 
 
+import com.uwm.projektz.enums.Type;
+
 import javax.persistence.*;
 
 /**
@@ -10,6 +12,7 @@ import javax.persistence.*;
 @Table(name = "attachments")
 @SequenceGenerator(initialValue = 1,name = "SEQ",sequenceName = "GEN_ATTACHMENT_ID")
 public class AttachmentOB extends BaseOB {
+    Type type;
     String name;
     String file_name;
     String mine_type;
@@ -23,11 +26,60 @@ public class AttachmentOB extends BaseOB {
     public AttachmentOB() {
     }
 
-    public AttachmentOB(TicketOB ticketOB, String name, String file_name, String mine_type, BinaryOB binaryOB)
-    {
-        this.name=name;
-        this.file_name=file_name;
-        this.mine_type=mine_type;
-        this.binary = binaryOB;
+    public AttachmentOB(Type type, String name, String file_name, String mine_type, BinaryOB binary, UserOB user) {
+        this.type = type;
+        this.name = name;
+        this.file_name = file_name;
+        this.mine_type = mine_type;
+        this.binary = binary;
+        this.user = user;
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getFile_name() {
+        return file_name;
+    }
+
+    public void setFile_name(String file_name) {
+        this.file_name = file_name;
+    }
+
+    public String getMine_type() {
+        return mine_type;
+    }
+
+    public void setMine_type(String mine_type) {
+        this.mine_type = mine_type;
+    }
+
+    public BinaryOB getBinary() {
+        return binary;
+    }
+
+    public void setBinary(BinaryOB binary) {
+        this.binary = binary;
+    }
+
+    public UserOB getUser() {
+        return user;
+    }
+
+    public void setUser(UserOB user) {
+        this.user = user;
     }
 }

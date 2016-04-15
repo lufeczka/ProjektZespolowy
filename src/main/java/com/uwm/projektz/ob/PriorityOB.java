@@ -10,6 +10,8 @@ public class PriorityOB extends BaseOB{
     String name;
     String responseTime;
 
+    public PriorityOB() {
+    }
 
     public PriorityOB(String name, String responseTime)
     {
@@ -17,11 +19,19 @@ public class PriorityOB extends BaseOB{
         this.responseTime = responseTime;
     }
 
-    //getters
-    public String getPriorityName () {return name;}
-    public String getPriorityResponseTime () {return responseTime;}
+    public String getName() {
+        return name;
+    }
 
-    //setters
-    public void setPriorityName (String name) {this.name = name;}
-    public void setPriorityResponseTime (String response) {this.responseTime = response;}
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getResponseTime() {
+        return responseTime;
+    }
+
+    public void setResponseTime(String responseTime) {
+        this.responseTime = responseTime;
+    }
 }

@@ -23,11 +23,42 @@ public class ProjectOB extends BaseOB{
     public ProjectOB() {
     }
 
-    public ProjectOB(String name, String desc, String version, PriorityOB priority)
-    {
+    public ProjectOB(String name, String descritpion, String version, PriorityOB priority) {
         this.name = name;
-        this.descritpion = desc;
+        this.descritpion = descritpion;
         this.version = version;
+        this.priority = priority;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescritpion() {
+        return descritpion;
+    }
+
+    public void setDescritpion(String descritpion) {
+        this.descritpion = descritpion;
+    }
+
+    public String getVersion() {
+        return version;
+    }
+
+    public void setVersion(String version) {
+        this.version = version;
+    }
+
+    public PriorityOB getPriority() {
+        return priority;
+    }
+
+    public void setPriority(PriorityOB priority) {
         this.priority = priority;
     }
 }

@@ -1,6 +1,7 @@
 package com.uwm.projektz.ob;
 
 import com.uwm.projektz.enums.TicketType;
+import com.uwm.projektz.enums.Type;
 
 import javax.persistence.*;
 import java.util.List;
@@ -8,9 +9,12 @@ import java.util.List;
 /**
  * Created by wojni on 11.03.2016.
  */
-@MappedSuperclass
+@Entity
+@Table(name = "tickets")
+@SequenceGenerator(initialValue = 1,name = "SEQ",sequenceName = "GEN_TICKET_ID")
 public class TicketOB extends BaseOB{
-    TicketType typ;
+    TicketType kind;
+    Type type;
     String description;
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "USER_ID" , referencedColumnName = "ID")
@@ -32,20 +36,31 @@ public class TicketOB extends BaseOB{
     public TicketOB() {
     }
 
-    public TicketOB(TicketType typ, String description, PriorityOB priority, ProjectOB project)
-    {
-        this.typ = typ;
+    public TicketOB(TicketType kind, Type type, String description, UserOB user, PriorityOB priority, ProjectOB project, List<HistoryOB> histories, List<AttachmentOB> attachments) {
+        this.kind = kind;
+        this.type = type;
         this.description = description;
+        this.user = user;
         this.priority = priority;
         this.project = project;
+        this.histories = histories;
+        this.attachments = attachments;
     }
 
-    public TicketType getTyp() {
-        return typ;
+    public TicketType getKind() {
+        return kind;
     }
 
-    public void setTyp(TicketType typ) {
-        this.typ = typ;
+    public void setKind(TicketType kind) {
+        this.kind = kind;
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
     }
 
     public String getDescription() {

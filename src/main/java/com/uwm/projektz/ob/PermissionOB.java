@@ -11,11 +11,18 @@ import java.util.List;
 @SequenceGenerator(initialValue = 1,name = "SEQ",sequenceName = "GEN_PERMISSION_ID")
 public class PermissionOB extends BaseOB{
     String name;
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name ="ROLE_ID",referencedColumnName = "ID")
-    List<RoleOB> role;
-
     public PermissionOB() {
     }
 
+    public PermissionOB(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }
