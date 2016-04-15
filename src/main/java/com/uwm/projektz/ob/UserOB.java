@@ -17,9 +17,9 @@ public class UserOB extends BaseOB {
     String md5pass;
     Boolean active;
     Boolean type; // 1 - pracownik wewnetrzny, 0 - pracownik zewnetrzny;
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "GROUP_ID", referencedColumnName = "ID")
-    List<GroupOB> groups = new ArrayList<>();
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ROLE_ID", referencedColumnName = "ID")
+    List<RoleOB> role = new ArrayList<>();
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "PROJECT_ID", referencedColumnName = "ID")
     List<ProjectOB> projects = new ArrayList<>();
@@ -38,13 +38,13 @@ public class UserOB extends BaseOB {
         this.type = type;
     }
 
-    public void addGroupToUser(UserOB userOB, GroupOB grupa)
+    public void addRoleToUser(UserOB userOB, RoleOB role)
     {
-        userOB.groups.add(grupa);
+        userOB.role.add(role);
     }
-    public void removeGroupFromUser(UserOB userOB, GroupOB grupa)
+    public void removeRoleFromUser(UserOB userOB, RoleOB role)
     {
-        userOB.groups.remove(grupa);
+        userOB.role.remove(role);
     }
     public void addProjectToUser(UserOB userOB, ProjectOB projectOB)
     {

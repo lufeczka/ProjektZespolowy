@@ -22,7 +22,7 @@ public class TicketOB extends BaseOB{
     @JoinColumn(name = "PROJECT_ID" , referencedColumnName = "ID")
     ProjectOB project;
     @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "HISTORY_ID" , referencedColumnName = "ID")
+    @JoinColumn(name = "TICKET_ID" , referencedColumnName = "ID")
     List<HistoryOB> histories;
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "ATTACHMENT_ID" , referencedColumnName = "ID")

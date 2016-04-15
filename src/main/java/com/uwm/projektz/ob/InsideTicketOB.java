@@ -12,9 +12,6 @@ import javax.persistence.*;
 @Table(name = "inside_ticets")
 @SequenceGenerator(initialValue = 1,name = "SEQ",sequenceName = "GEN_INSIDE_TICKET_ID")
 public class InsideTicketOB extends TicketOB {
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "OUTSIDE_TICET_ID", referencedColumnName = "ID")
-    OutsideTicetOB Ticket;
 
     public InsideTicketOB() {
     }

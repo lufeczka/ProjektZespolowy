@@ -10,9 +10,6 @@ import javax.persistence.*;
 @SequenceGenerator(initialValue = 1,name = "SEQ",sequenceName = "GEN_ROLE_ID")
 public class RoleOB extends BaseOB {
     String name;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="GROUP_ID",referencedColumnName = "ID")
-    GroupOB group;
 
     public RoleOB() {
     }
