@@ -10,7 +10,6 @@ import javax.persistence.*;
 @SequenceGenerator(initialValue = 1,name = "SEQ",sequenceName = "GEN_BINARY_ID")
 public class BinaryOB extends BaseOB{
     byte binary;
-
     public BinaryOB() {
     }
 

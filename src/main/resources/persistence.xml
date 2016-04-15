@@ -7,7 +7,7 @@
         <class>com.uwm.projektz.ob.UserOB</class>
         <class>com.uwm.projektz.ob.ProjectOB</class>
         <class>com.uwm.projektz.ob.RoleOB</class>
-        <class>com.uwm.projektz.ob.GroupOB</class>
+
         <class>com.uwm.projektz.ob.PermissionOB</class>
         <class>com.uwm.projektz.ob.PriorityOB</class>
         <class>com.uwm.projektz.ob.AttachmentOB</class>

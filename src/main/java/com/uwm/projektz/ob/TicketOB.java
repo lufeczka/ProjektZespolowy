@@ -25,7 +25,7 @@ public class TicketOB extends BaseOB{
     @JoinColumn(name = "TICKET_ID" , referencedColumnName = "ID")
     List<HistoryOB> histories;
     @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ATTACHMENT_ID" , referencedColumnName = "ID")
+    @JoinColumn(name = "TICKET_ID" , referencedColumnName = "ID")
     List<AttachmentOB> attachments;
 
 

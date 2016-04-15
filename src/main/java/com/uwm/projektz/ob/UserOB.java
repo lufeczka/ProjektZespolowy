@@ -23,6 +23,9 @@ public class UserOB extends BaseOB {
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "PROJECT_ID", referencedColumnName = "ID")
     List<ProjectOB> projects = new ArrayList<>();
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "USER_ID", referencedColumnName = "ID")
+    List<PermissionOB> permissions;
 
     public UserOB() {
     }
