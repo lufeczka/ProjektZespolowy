@@ -14,7 +14,7 @@ import java.util.Date;
 @SequenceGenerator(initialValue = 1,name = "SEQ",sequenceName = "GEN_HISTORY_ID")
 public class HistoryOB extends BaseOB {
     Type type;
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "USER_ID" , referencedColumnName = "ID")
     UserOB user;
     String description;

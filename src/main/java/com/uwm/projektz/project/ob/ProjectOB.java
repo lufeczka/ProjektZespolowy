@@ -15,6 +15,7 @@ import javax.persistence.*;
 @Table(name = "projects")
 @SequenceGenerator(initialValue = 1,name = "SEQ",sequenceName = "GEN_PROJECT_ID")
 public class ProjectOB extends BaseOB {
+    @Column(unique = true)
     String name;
     String descritpion;
     String version;

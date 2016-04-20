@@ -17,7 +17,9 @@ import java.util.List;
 public class UserOB extends BaseOB {
     String name;
     String surname;
+    @Column(unique = true)
     String email;
+    @Column(unique = true)
     String login;
     String md5pass;
     Boolean active;

@@ -16,9 +16,11 @@ public class PermissionDTO extends BaseDTO {
         this.name = name;
     }
 
-    //getters
-    public String getPermissionName () { return name;}
+    public String getName() {
+        return name;
+    }
 
-    //setters
-    public void setPermissionName (String name) {this.name = name;}
+    public void setName(String name) {
+        this.name = name;
+    }
 }

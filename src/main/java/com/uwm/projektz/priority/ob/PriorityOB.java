@@ -9,6 +9,7 @@ import javax.persistence.*;
 @Table(name = "priorities")
 @SequenceGenerator(initialValue = 1,name = "SEQ",sequenceName = "GEN_PRIORITY_ID")
 public class PriorityOB extends BaseOB {
+    @Column(unique = true)
     String name;
     String responseTime;
 

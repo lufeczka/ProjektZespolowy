@@ -11,6 +11,7 @@ import javax.persistence.*;
 @Table(name = "permissions")
 @SequenceGenerator(initialValue = 1,name = "SEQ",sequenceName = "GEN_PERMISSION_ID")
 public class PermissionOB extends BaseOB {
+    @Column(unique = true)
     String name;
     public PermissionOB() {
     }
