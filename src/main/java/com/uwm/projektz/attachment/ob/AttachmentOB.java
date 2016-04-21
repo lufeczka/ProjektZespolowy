@@ -22,7 +22,7 @@ public class AttachmentOB extends BaseOB {
     @ManyToOne(fetch = FetchType.LAZY ,cascade = CascadeType.ALL)
     @JoinColumn(name = "BINARY_ID", referencedColumnName = "ID")
     BinaryOB binary;
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "USER_ID" , referencedColumnName = "ID")
     UserOB user;
 

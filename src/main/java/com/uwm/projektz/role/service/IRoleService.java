@@ -20,5 +20,6 @@ public interface IRoleService {
     RoleDTO findByName(String aName);
 
     //DELETE
+    //usuwanie permission z listy
     void deleteRoleById(Long aId);
 }

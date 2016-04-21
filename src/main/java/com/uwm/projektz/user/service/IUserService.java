@@ -39,5 +39,7 @@ public interface IUserService {
     UserDTO updateProjectListForUser(Long aId, ProjectDTO aProjectDTO);
 
     //DELETE
+    void deletProjectFromUser(Long aId,ProjectDTO aPojectDTO);//odłączenie projektu od listy
+    void deletPermissionFromUser(Long aId,PermissionDTO aPermsissionDTO);//odlaaczenie permission od listy
     void deletUser(Long aId);
 }

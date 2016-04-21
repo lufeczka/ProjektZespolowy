@@ -12,6 +12,7 @@ import com.uwm.projektz.user.dto.UserDTO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -21,6 +22,11 @@ import java.util.List;
 @Service
 @Transactional
 public class ITicketServiceImpl implements ITicketService {
+
+    @Override
+    public TicketDTO updateAttachmentForTicketForm(Long aId, File aFile, String aFilneName, String aMineType, String name) {
+        return null;
+    }
 
     @Override
     public TicketDTO saveTicket(TicketDTO aTicketDTO) {

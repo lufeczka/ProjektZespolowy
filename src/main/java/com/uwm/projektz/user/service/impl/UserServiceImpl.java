@@ -21,6 +21,16 @@ public class UserServiceImpl implements IUserService {
 
 
     @Override
+    public void deletProjectFromUser(Long aId, ProjectDTO aPojectDTO) {
+
+    }
+
+    @Override
+    public void deletPermissionFromUser(Long aId, PermissionDTO aPermsissionDTO) {
+
+    }
+
+    @Override
     public UserDTO updateUserActivity(Long aId,Boolean aActive) {
         return null;
     }

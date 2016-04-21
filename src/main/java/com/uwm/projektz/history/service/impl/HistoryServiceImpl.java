@@ -16,6 +16,12 @@ import java.util.List;
 @Service
 @Transactional
 public class HistoryServiceImpl implements IHistoryService{
+
+    @Override
+    public List<HistoryDTO> findHistoryByDateAndUser(Date aDate, UserDTO aUserDTO) {
+        return null;
+    }
+
     @Override
     public HistoryDTO saveHistory(HistoryDTO aPermissionDTO) {
         return null;

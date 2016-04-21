@@ -14,13 +14,18 @@ public interface IHistoryService  {
     //CREATE & UPDATE
     HistoryDTO saveHistory(HistoryDTO aPermissionDTO);
 
+    //UPDATE
+    //dodawanie attachmentu
+
     //READ
+    List<HistoryDTO> findHistoryByDateAndUser(Date aDate,UserDTO aUserDTO);
     List<HistoryDTO> findHistoryByDate(Date aDate);
     List<HistoryDTO> findHistoryByUser(UserDTO aUserDTO);
     HistoryDTO findHistoryById(Long aId);
     List<HistoryDTO> findAllHistory();
-    HistoryDTO findByName(String aName);
+    HistoryDTO findByName(String aName);//nie ma wyszukiwania po tresic
 
     //DELETE
+    //usuwanie attachmentow ,
     void deleteHistoryById(Long aId);
 }

@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.ws.rs.Path;
+import java.io.File;
 import java.util.List;
 
 
@@ -92,7 +93,7 @@ public class TicketController {
 
     @RequestMapping(value="/addAttachmentToTicket/{id}", method = RequestMethod.POST,consumes = "aplication/json",produces = "appliaction/json")
     @ResponseBody
-    public ResponseEntity<TicketDTO> updateAttachmentForTciket(@PathVariable("id") Long aId, @RequestBody AttachmentDTO aAttachmentDTO){
+    public ResponseEntity<TicketDTO> updateAttachmentForTciket(@PathVariable("id") Long aId, @RequestBody AttachmentDTO aAttachmentDTO,File aFile){
         return new ResponseEntity<>(ticketService.updateAttachemntForTicket(aId, aAttachmentDTO),HttpStatus.OK);
     }
 
@@ -108,6 +109,7 @@ public class TicketController {
        return new ResponseEntity<>(ticketService.updateTicketTypeAndKind(aId,aKind,aType),HttpStatus.OK);
 
     }
+
 
 
     @RequestMapping(value="/removeTicketById/{id}",method = RequestMethod.DELETE)

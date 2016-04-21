@@ -31,10 +31,10 @@ public class TicketOB extends BaseOB {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "PROJECT_ID" , referencedColumnName = "ID")
     ProjectOB project;
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.REMOVE)
     @JoinColumn(name = "TICKET_ID" , referencedColumnName = "ID")
     List<HistoryOB> histories;
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     @JoinColumn(name = "TICKET_ID" , referencedColumnName = "ID")
     List<AttachmentOB> attachments;
 

@@ -20,6 +20,11 @@ public class HistoryOB extends BaseOB {
     String description;
     Date date;
 
+    /**
+     * @OneToMany (Casscade = remove)
+     *
+     * List<AttachmentDTO> attachments
+     */
     public HistoryOB() {
     }
 
