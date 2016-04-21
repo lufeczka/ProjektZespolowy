@@ -1,7 +1,6 @@
 package com.uwm.projektz.attachment.service;
 
 import com.uwm.projektz.attachment.dto.AttachmentDTO;
-import com.uwm.projektz.binary.dto.BinaryDTO;
 import com.uwm.projektz.enums.Type;
 import com.uwm.projektz.user.dto.UserDTO;
 

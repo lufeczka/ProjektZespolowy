@@ -2,7 +2,6 @@ package com.uwm.projektz.history.api;
 
 import com.uwm.projektz.history.dto.HistoryDTO;
 import com.uwm.projektz.history.service.IHistoryService;
-import com.uwm.projektz.permission.dto.PermissionDTO;
 import com.uwm.projektz.user.dto.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -42,6 +41,19 @@ public class HistoryController {
     public ResponseEntity<HistoryDTO> findHistoryByName(@PathVariable("name") String aName){
         return new ResponseEntity<>(historyService.findByName(aName),HttpStatus.OK);
     }
+
+    @RequestMapping(value="/getByUser/{user}",method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<List<HistoryDTO>> findHistoryByUser(@PathVariable("user") UserDTO aUserDTO){
+        return new ResponseEntity<>(historyService.findHistoryByUser(aUserDTO),HttpStatus.OK);
+    }
+
+    @RequestMapping(value="/getByDate/{date}",method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<List<HistoryDTO>> findHistoryByDate(@PathVariable("date") Date aDate){
+        return new ResponseEntity<>(historyService.findHistoryByDate(aDate),HttpStatus.OK);
+    }
+
 
     @RequestMapping(value="/getByUserAndDate/{user},{date}",method = RequestMethod.GET)
     @ResponseBody

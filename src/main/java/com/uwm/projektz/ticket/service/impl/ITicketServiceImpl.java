@@ -23,10 +23,6 @@ import java.util.List;
 @Transactional
 public class ITicketServiceImpl implements ITicketService {
 
-    @Override
-    public TicketDTO updateAttachmentForTicketForm(Long aId, File aFile, String aFilneName, String aMineType, String name) {
-        return null;
-    }
 
     @Override
     public TicketDTO saveTicket(TicketDTO aTicketDTO) {

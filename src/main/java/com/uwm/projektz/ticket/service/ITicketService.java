@@ -35,7 +35,6 @@ public interface ITicketService {
     TicketDTO updateDescriptionForTicket(Long aId, String aDescription);
     TicketDTO updateHistoryTicket(Long aId, HistoryDTO aHistoryDTO);
     TicketDTO updateAttachemntForTicket(Long aId, AttachmentDTO aAtachmentDTO);
-    TicketDTO updateAttachmentForTicketForm(Long aId, File aFile,String aFilneName, String aMineType,String name);
     TicketDTO updateTicketTypeAndKind(Long aId,TicketType aTicketType, Type aKind);//sama zmiana ticketType
 
     //DELETE

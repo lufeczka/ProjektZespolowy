@@ -1,11 +1,13 @@
 package com.uwm.projektz.history.dto;
 
+import com.uwm.projektz.attachment.dto.AttachmentDTO;
 import com.uwm.projektz.base.dto.BaseDTO;
 import com.uwm.projektz.enums.Type;
 import com.uwm.projektz.user.dto.UserDTO;
 import io.swagger.annotations.ApiModel;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by wojni on 10.03.2016.
@@ -17,14 +19,15 @@ public class HistoryDTO extends BaseDTO {
     UserDTO user;
     String description;
     Date date;
+    List<AttachmentDTO> attachments;
 
-
-    public HistoryDTO(Long id, Date techDate, Type type, UserDTO user, String description, Date date) {
+    public HistoryDTO(Long id, Date techDate, Type type, UserDTO user, String description, Date date, List<AttachmentDTO> attachments) {
         super(id, techDate);
         this.type = type;
         this.user = user;
         this.description = description;
         this.date = date;
+        this.attachments = attachments;
     }
 
     public Date getDate() {
@@ -57,5 +60,13 @@ public class HistoryDTO extends BaseDTO {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public List<AttachmentDTO> getAttachments() {
+        return attachments;
+    }
+
+    public void setAttachments(List<AttachmentDTO> attachments) {
+        this.attachments = attachments;
     }
 }

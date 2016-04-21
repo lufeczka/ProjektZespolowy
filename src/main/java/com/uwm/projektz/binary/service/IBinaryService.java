@@ -14,7 +14,7 @@ public interface IBinaryService {
 
     //READ
     BinaryDTO findBinaryById(Long aId);
-    List<BinaryDTO> findAllBinary();//odlec 
+    List<BinaryDTO> findAllBinary();//odlec
 
 
     //DELETE

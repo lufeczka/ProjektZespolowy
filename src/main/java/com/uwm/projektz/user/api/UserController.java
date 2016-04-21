@@ -129,12 +129,27 @@ public class UserController {
 
 
     //DELETE
-    @RequestMapping(value="/removeUserById/{id}",method = RequestMethod.DELETE)
+   @RequestMapping(value="/removeUserById/{id}",method = RequestMethod.DELETE)
     @ResponseBody
     public ResponseEntity<UserDTO> deleteUser(@PathVariable("id") Long aId){
         userService.deletUser(aId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @RequestMapping(value="/removeProjectFromUser/{id}",method = RequestMethod.DELETE)
+    @ResponseBody
+    public ResponseEntity<UserDTO> deleteProjectFromUser(@PathVariable("id") Long aId,@RequestBody ProjectDTO aProjectDTO){
+        userService.deletProjectFromUser(aId,aProjectDTO);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @RequestMapping(value="/removePermissionFromUser/{id}",method = RequestMethod.DELETE)
+    @ResponseBody
+    public ResponseEntity<UserDTO> deletePermissionFromUser(@PathVariable("id") Long aId,@RequestBody PermissionDTO aPermissionDTO){
+        userService.deletPermissionFromUser(aId, aPermissionDTO);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 
 
 
