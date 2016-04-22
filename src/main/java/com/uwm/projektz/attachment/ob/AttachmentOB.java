@@ -19,7 +19,7 @@ public class AttachmentOB extends BaseOB {
     String name;
     String file_name;
     String mine_type;
-    @ManyToOne(fetch = FetchType.LAZY ,cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY ,cascade = CascadeType.ALL)
     @JoinColumn(name = "BINARY_ID", referencedColumnName = "ID")
     BinaryOB binary;
     @ManyToOne(fetch = FetchType.LAZY)

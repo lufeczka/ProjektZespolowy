@@ -2,8 +2,10 @@ package com.uwm.projektz.project.service.impl;
 
 import com.uwm.projektz.priority.dto.PriorityDTO;
 import com.uwm.projektz.project.dto.ProjectDTO;
+import com.uwm.projektz.project.repository.IProjectRepository;
 import com.uwm.projektz.project.service.IProjectService;
 import com.uwm.projektz.user.dto.UserDTO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,8 +18,12 @@ import java.util.List;
 @Transactional
 public class ProjectServiceImpl implements IProjectService {
 
+    @Autowired
+    IProjectRepository projectRepository;
+
     @Override
     public ProjectDTO deleteProjectById(Long aId) {
+        projectRepository.delete(aId);
         return null;
     }
 

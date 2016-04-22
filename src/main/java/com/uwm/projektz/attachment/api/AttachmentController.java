@@ -1,10 +1,12 @@
 package com.uwm.projektz.attachment.api;
 
+import com.google.common.io.Files;
 import com.uwm.projektz.attachment.dto.AttachmentDTO;
 import com.uwm.projektz.attachment.service.IAttachmentSerivce;
 import com.uwm.projektz.binary.dto.BinaryDTO;
 import com.uwm.projektz.enums.Type;
 import com.uwm.projektz.user.dto.UserDTO;
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
