@@ -23,7 +23,6 @@ public interface IHistoryService  {
     List<HistoryDTO> findHistoryByUser(UserDTO aUserDTO);
     HistoryDTO findHistoryById(Long aId);
     List<HistoryDTO> findAllHistory();
-    HistoryDTO findByName(String aName);//nie ma wyszukiwania po tresic
 
     //DELETE
     //usuwanie attachmentow ,

@@ -11,9 +11,6 @@ import java.util.List;
 public interface IRoleService {
     //CREATE & UPDATE
     RoleDTO saveRole(RoleDTO aRoleDTO);
-
-    //UPDATE
-    RoleDTO updatePermissionForRole(PermissionDTO aPermissionDTO);
     //READ
     RoleDTO findPRoleById(Long aId);
     List<RoleDTO> findAllRole();

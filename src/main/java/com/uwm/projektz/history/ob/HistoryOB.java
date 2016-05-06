@@ -26,11 +26,11 @@ public class HistoryOB extends BaseOB {
     @JoinColumn(name = "HISTORY_ID", referencedColumnName = "ID")
     List<AttachmentOB> attachments;
 
+    public HistoryOB(){}
 
-    public HistoryOB() {
-    }
 
-    public HistoryOB(Type type, UserOB user, String description, Date date, List<AttachmentOB> attachments) {
+    public HistoryOB(Long id, Date techDate,Type type, UserOB user, String description, Date date, List<AttachmentOB> attachments) {
+        super(id, techDate);
         this.type = type;
         this.user = user;
         this.description = description;

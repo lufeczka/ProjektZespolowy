@@ -1,18 +1,25 @@
 package com.uwm.projektz.ticket.service.impl;
 
 import com.uwm.projektz.attachment.dto.AttachmentDTO;
+import com.uwm.projektz.attachment.repository.IAttachmentRepository;
 import com.uwm.projektz.enums.TicketType;
 import com.uwm.projektz.enums.Type;
 import com.uwm.projektz.history.dto.HistoryDTO;
 import com.uwm.projektz.priority.dto.PriorityDTO;
 import com.uwm.projektz.project.dto.ProjectDTO;
 import com.uwm.projektz.ticket.dto.TicketDTO;
+import com.uwm.projektz.ticket.ob.TicketOB;
+import com.uwm.projektz.ticket.repository.ITicketRepository;
 import com.uwm.projektz.ticket.service.ITicketService;
 import com.uwm.projektz.user.dto.UserDTO;
+import com.uwm.projektz.utils.Converters;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,25 +30,31 @@ import java.util.List;
 @Transactional
 public class ITicketServiceImpl implements ITicketService {
 
+    @Autowired
+    ITicketRepository ticketRepository;
 
     @Override
     public TicketDTO saveTicket(TicketDTO aTicketDTO) {
-        return null;
+        ticketRepository.save(Converters.converterTicketDTOtoOB(aTicketDTO));
+        return aTicketDTO;
     }
 
     @Override
     public TicketDTO findTicketById(Long aId) {
-        return null;
+        return Converters.converterTicketOBtoDTO(ticketRepository.findOne(aId));
     }
 
     @Override
     public List<TicketDTO> findByTicketsType(TicketType aTicketType) {
-        return null;
+        List<TicketOB> ticket = ticketRepository.findByTicketType(aTicketType);
+        return Converters.converterTicketListOBtoDTO(ticket);
     }
 
     @Override
     public List<TicketDTO> findByType(Type aType) {
-        return null;
+        List<TicketOB> tickets = ticketRepository.findByType(aType);
+        return Converters.converterTicketListOBtoDTO(tickets);
+
     }
 
     @Override

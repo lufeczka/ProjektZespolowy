@@ -19,7 +19,7 @@ public interface IProjectService {
     List<ProjectDTO> findAllProjects();
     ProjectDTO findProjectByName(String aName);
     List<ProjectDTO> findProjectsByPriority(PriorityDTO aPriorityOB);
-    List<ProjectDTO> findUserPorjects(UserDTO aUserDTO);//albo po id usera w sumie to juz mam pobierajac usera
+    List<ProjectDTO> findUserProjects(UserDTO aUserDTO);//albo po id usera w sumie to juz mam pobierajac usera
 
     //UPDATE
     ProjectDTO updatePriorityForProject(Long aId,PriorityDTO aPrority);

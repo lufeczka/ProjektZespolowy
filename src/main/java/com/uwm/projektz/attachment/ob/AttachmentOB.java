@@ -7,6 +7,7 @@ import com.uwm.projektz.binary.ob.BinaryOB;
 import com.uwm.projektz.user.ob.UserOB;
 
 import javax.persistence.*;
+import java.util.Date;
 
 /**
  * Created by wojni on 11.03.2016.
@@ -26,10 +27,10 @@ public class AttachmentOB extends BaseOB {
     @JoinColumn(name = "USER_ID" , referencedColumnName = "ID")
     UserOB user;
 
-    public AttachmentOB() {
-    }
+    public AttachmentOB(){}
 
-    public AttachmentOB(Type type, String name, String file_name, String mine_type, BinaryOB binary, UserOB user) {
+    public AttachmentOB(Long id, Date techdate, Type type, String name, String file_name, String mine_type, BinaryOB binary, UserOB user) {
+        super(id,techdate);
         this.type = type;
         this.name = name;
         this.file_name = file_name;

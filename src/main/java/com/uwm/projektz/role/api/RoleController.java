@@ -46,12 +46,6 @@ public class RoleController {
         return new ResponseEntity<>(roleService.saveRole(aRole),HttpStatus.OK);
     }
 
-    @RequestMapping(value ="/addPermissionToRole", method = RequestMethod.POST,consumes ="application/json", produces = "application/json")
-    @ResponseBody
-    public ResponseEntity<RoleDTO> updatePermissionsForRole(@RequestBody PermissionDTO aPermissionDTO){
-        return new ResponseEntity<>(roleService.updatePermissionForRole(aPermissionDTO),HttpStatus.OK);
-    }
-
     @RequestMapping(value= "/removeRoleById/{id}",method = RequestMethod.DELETE)
     @ResponseBody
     public ResponseEntity<RoleDTO> deleteRole(@PathVariable("id")Long aId)

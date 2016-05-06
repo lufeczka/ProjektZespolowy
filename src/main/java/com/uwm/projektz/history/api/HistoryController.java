@@ -36,11 +36,6 @@ public class HistoryController {
         return new ResponseEntity<>(historyService.findAllHistory(),HttpStatus.OK);
     }
 
-    @RequestMapping(value="/getByName/{name}",method = RequestMethod.GET)
-    @ResponseBody
-    public ResponseEntity<HistoryDTO> findHistoryByName(@PathVariable("name") String aName){
-        return new ResponseEntity<>(historyService.findByName(aName),HttpStatus.OK);
-    }
 
     @RequestMapping(value="/getByUser/{user}",method = RequestMethod.GET)
     @ResponseBody

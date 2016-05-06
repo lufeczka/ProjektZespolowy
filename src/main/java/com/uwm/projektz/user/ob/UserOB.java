@@ -6,6 +6,7 @@ import com.uwm.projektz.role.ob.RoleOB;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -31,12 +32,13 @@ public class UserOB extends BaseOB {
     List<ProjectOB> projects = new ArrayList<>();
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "USER_ID", referencedColumnName = "ID")
-    List<PermissionOB> permissions;
+    List<PermissionOB> permissions = new ArrayList<>();
 
     public UserOB() {
     }
 
-    public UserOB(String name, String surname, String email, String login, String md5pass, Boolean active, RoleOB role, List<ProjectOB> projects, List<PermissionOB> permissions) {
+    public UserOB(Long id, Date techdate, String name, String surname, String email, String login, String md5pass, Boolean active, RoleOB role, List<ProjectOB> projects, List<PermissionOB> permissions) {
+        super(id,techdate);
         this.name = name;
         this.surname = surname;
         this.email = email;

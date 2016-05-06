@@ -10,6 +10,7 @@ import com.uwm.projektz.project.ob.ProjectOB;
 import com.uwm.projektz.user.ob.UserOB;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -39,10 +40,10 @@ public class TicketOB extends BaseOB {
     List<AttachmentOB> attachments;
 
 
-    public TicketOB() {
-    }
 
-    public TicketOB(TicketType kind, Type type, String description, UserOB user, PriorityOB priority, ProjectOB project, List<HistoryOB> histories, List<AttachmentOB> attachments) {
+    public TicketOB(){}
+    public TicketOB(Long id, Date techdate, TicketType kind, Type type, String description, UserOB user, PriorityOB priority, ProjectOB project, List<HistoryOB> histories, List<AttachmentOB> attachments) {
+        super(id,techdate);
         this.kind = kind;
         this.type = type;
         this.description = description;

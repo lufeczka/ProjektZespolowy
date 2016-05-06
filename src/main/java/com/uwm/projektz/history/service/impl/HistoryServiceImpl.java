@@ -1,11 +1,16 @@
 package com.uwm.projektz.history.service.impl;
 
 import com.uwm.projektz.history.dto.HistoryDTO;
+import com.uwm.projektz.history.ob.HistoryOB;
+import com.uwm.projektz.history.repository.IHistoryRepository;
 import com.uwm.projektz.history.service.IHistoryService;
 import com.uwm.projektz.user.dto.UserDTO;
+import com.uwm.projektz.utils.Converters;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -17,43 +22,72 @@ import java.util.List;
 @Transactional
 public class HistoryServiceImpl implements IHistoryService{
 
+    @Autowired
+    IHistoryRepository historyRepository;
+
     @Override
     public List<HistoryDTO> findHistoryByDateAndUser(Date aDate, UserDTO aUserDTO) {
-        return null;
+        List<HistoryOB> histories = historyRepository.findAll();
+        List<HistoryDTO> temp = new ArrayList<HistoryDTO>();
+
+        for (HistoryOB element : histories){
+            UserDTO user = Converters.converterUserOBtoDTO(element.getUser());
+            Date date = element.getDate();
+
+            if ((user == aUserDTO) && (date == aDate)) temp.add(Converters.converterHistoryOBtoDTO(element));
+        }
+        return temp;
     }
 
     @Override
-    public HistoryDTO saveHistory(HistoryDTO aPermissionDTO) {
-        return null;
+    public HistoryDTO saveHistory(HistoryDTO aHistoryDTO) {
+        historyRepository.save(Converters.converterHistoryDTOtoOB(aHistoryDTO));
+        return aHistoryDTO;
     }
 
     @Override
     public List<HistoryDTO> findHistoryByDate(Date aDate) {
-        return null;
+        List<HistoryOB> histories = historyRepository.findAll();
+        List<HistoryDTO> temp = new ArrayList<HistoryDTO>();
+
+        for (HistoryOB element : histories){
+            Date date = element.getDate();
+
+            if (date == aDate) temp.add(Converters.converterHistoryOBtoDTO(element));
+        }
+        return temp;
     }
 
     @Override
     public List<HistoryDTO> findHistoryByUser(UserDTO aUserDTO) {
-        return null;
+        List<HistoryOB> histories = historyRepository.findAll();
+        List<HistoryDTO> temp = new ArrayList<HistoryDTO>();
+
+        for (HistoryOB element : histories){
+            UserDTO user = Converters.converterUserOBtoDTO(element.getUser());
+
+            if (user == aUserDTO) temp.add(Converters.converterHistoryOBtoDTO(element));
+        }
+        return temp;
     }
 
     @Override
     public HistoryDTO findHistoryById(Long aId) {
-        return null;
+        HistoryOB temp = historyRepository.findOne(aId);
+
+        return Converters.converterHistoryOBtoDTO(temp);
     }
 
     @Override
     public List<HistoryDTO> findAllHistory() {
-        return null;
+        List<HistoryOB> histories = historyRepository.findAll();
+
+        return Converters.converterHistoryListOBtoDTO(histories);
     }
 
-    @Override
-    public HistoryDTO findByName(String aName) {
-        return null;
-    }
 
     @Override
     public void deleteHistoryById(Long aId) {
-
+        historyRepository.delete(aId);
     }
 }
