@@ -1,13 +1,14 @@
 package com.uwm.projektz.project.service.impl;
 
+import com.uwm.projektz.priority.converter.PriorityConverter;
 import com.uwm.projektz.priority.dto.PriorityDTO;
 import com.uwm.projektz.priority.ob.PriorityOB;
+import com.uwm.projektz.project.converter.ProjectConverter;
 import com.uwm.projektz.project.dto.ProjectDTO;
 import com.uwm.projektz.project.ob.ProjectOB;
 import com.uwm.projektz.project.repository.IProjectRepository;
 import com.uwm.projektz.project.service.IProjectService;
 import com.uwm.projektz.user.dto.UserDTO;
-import com.uwm.projektz.utils.Converters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,55 +34,46 @@ public class ProjectServiceImpl implements IProjectService {
 
     @Override
     public ProjectDTO saveProject(ProjectDTO aProjectDTO) {
-        projectRepository.save(Converters.converterProjectDTOtoOB(aProjectDTO));
+        projectRepository.save(ProjectConverter.converterProjectDTOtoOB(aProjectDTO));
         return null;
     }
 
     @Override
     public ProjectDTO findProjectById(Long aId) {
         ProjectOB temp = projectRepository.findOne(aId);
-        return Converters.converterProjectOBtoDTO(temp);
+        return ProjectConverter.converterProjectOBtoDTO(temp);
     }
 
     @Override
     public List<ProjectDTO> findAllProjects() {
-        List<ProjectDTO> temp = Converters.converterProjectListOBtoDTO(projectRepository.findAll());
+        List<ProjectDTO> temp = ProjectConverter.converterProjectListOBtoDTO(projectRepository.findAll());
         return temp;
     }
 
     @Override
     public ProjectDTO findProjectByName(String aName) {
-        List<ProjectOB> projects = projectRepository.findAll();
-        for (ProjectOB element : projects){
-            String name = element.getName();
-            if (name == aName) return Converters.converterProjectOBtoDTO(element);
-        }
-        return null;
+        ProjectOB project = projectRepository.findProjectByName(aName);
+        return ProjectConverter.converterProjectOBtoDTO(project);
 
     }
 
     @Override
     public List<ProjectDTO> findProjectsByPriority(PriorityDTO aPriorityDTO) {
-        List<ProjectOB> projects = projectRepository.findAll();
-        List<ProjectDTO> temp = new ArrayList<ProjectDTO>();
-        for (ProjectOB element : projects){
-            PriorityDTO priorytet = Converters.converterPriorityOBtoDTO(element.getPriority());
-            if (priorytet == aPriorityDTO) temp.add(Converters.converterProjectOBtoDTO(element));
-        }
-        return temp;
+        List<ProjectOB> projects = projectRepository.findProjectByPriority(aPriorityDTO.getId());
+        return ProjectConverter.converterProjectListOBtoDTO(projects);
     }
 
     @Override
     public List<ProjectDTO> findUserProjects(UserDTO aUserDTO) {
-        UserDTO user = aUserDTO;
-        return null;
+        List<ProjectOB> projects = projectRepository.findUserProjects(aUserDTO.getId());
+        return ProjectConverter.converterProjectListOBtoDTO(projects);
     }
 
     @Override
     public ProjectDTO updatePriorityForProject(Long aId, PriorityDTO aPrority) {
         ProjectOB temp = projectRepository.findOne(aId);
-        temp.setPriority(Converters.converterPriorityDTOtoOB(aPrority));
+        temp.setPriority(PriorityConverter.converterPriorityDTOtoOB(aPrority));
         projectRepository.save(temp);
-        return Converters.converterProjectOBtoDTO(temp);
+        return ProjectConverter.converterProjectOBtoDTO(temp);
     }
 }

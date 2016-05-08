@@ -1,10 +1,17 @@
 package com.uwm.projektz.user.service.impl;
 
+import com.uwm.projektz.permission.converter.PermissionConverter;
 import com.uwm.projektz.permission.dto.PermissionDTO;
+import com.uwm.projektz.permission.ob.PermissionOB;
+import com.uwm.projektz.project.converter.ProjectConverter;
 import com.uwm.projektz.project.dto.ProjectDTO;
+import com.uwm.projektz.project.ob.ProjectOB;
 import com.uwm.projektz.role.dto.RoleDTO;
 import com.uwm.projektz.user.dto.UserDTO;
+import com.uwm.projektz.user.ob.UserOB;
+import com.uwm.projektz.user.repository.IUserRepository;
 import com.uwm.projektz.user.service.IUserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,15 +26,25 @@ import java.util.List;
 @Transactional
 public class UserServiceImpl implements IUserService {
 
+    @Autowired
+    IUserRepository userRepository;
 
     @Override
     public void deletProjectFromUser(Long aId, ProjectDTO aPojectDTO) {
-
+        UserOB user = userRepository.findOne(aId);
+        List<ProjectOB> userProjects = user.getProjects();
+        userProjects.remove(ProjectConverter.converterProjectDTOtoOB(aPojectDTO));
+        user.setProjects(userProjects);
+        userRepository.save(user);
     }
 
     @Override
     public void deletPermissionFromUser(Long aId, PermissionDTO aPermsissionDTO) {
-
+        UserOB user = userRepository.findOne(aId);
+        List<PermissionOB> userPermissions = user.getPermissions();
+        userPermissions.remove(PermissionConverter.converterPermissionDTOtoOB(aPermsissionDTO));
+        user.setPermissions(userPermissions);
+        userRepository.save(user);
     }
 
     @Override

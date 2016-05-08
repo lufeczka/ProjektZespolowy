@@ -2,6 +2,7 @@ package com.uwm.projektz.ticket.repository;
 
 import com.uwm.projektz.enums.TicketType;
 import com.uwm.projektz.enums.Type;
+import com.uwm.projektz.priority.ob.PriorityOB;
 import com.uwm.projektz.ticket.ob.TicketOB;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -18,5 +19,11 @@ public interface ITicketRepository extends JpaRepository<TicketOB,Long> {
     List<TicketOB> findByTicketType (TicketType type);
     @Query("SELECT t FROM TicketOB WHERE t.type = ?1")
     List<TicketOB> findByType (Type type);
+    @Query("SELECT t FROM TicketOB WHERE t.user.id = ?1")
+    List<TicketOB> findByUser (Long aId);
+    @Query("SELECT t FROM TicketOB WHERE t.priority = ?1")
+    List<TicketOB> findByPriority (PriorityOB aPriorityOB);
+    @Query("SELECT t FROM TicketOB WHERE t.project.id = ?1")
+    List<TicketOB> findByProject (Long aId);
 
 }

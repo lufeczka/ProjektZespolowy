@@ -1,10 +1,10 @@
 package com.uwm.projektz.permission.service.impl;
 
+import com.uwm.projektz.permission.converter.PermissionConverter;
 import com.uwm.projektz.permission.dto.PermissionDTO;
 import com.uwm.projektz.permission.ob.PermissionOB;
 import com.uwm.projektz.permission.repository.IPermissionRepository;
 import com.uwm.projektz.permission.service.IPermissionService;
-import com.uwm.projektz.utils.Converters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,31 +23,26 @@ public class PermissionServiceImpl implements IPermissionService {
 
     @Override
     public PermissionDTO savePermission(PermissionDTO aPermissionDTO) {
-        permissionRepository.save(Converters.converterPermissionDTOtoOB(aPermissionDTO));
+        permissionRepository.save(PermissionConverter.converterPermissionDTOtoOB(aPermissionDTO));
         return aPermissionDTO;
     }
 
     @Override
     public PermissionDTO findPermissionById(Long aId) {
         PermissionOB temp = permissionRepository.findOne(aId);
-        return Converters.converterPermissionOBtoDTO(temp);
+        return PermissionConverter.converterPermissionOBtoDTO(temp);
     }
 
     @Override
     public List<PermissionDTO> findAllPermission() {
         List<PermissionOB> temp = permissionRepository.findAll();
-        return Converters.converterPermissionListOBtoDTO(temp);
+        return PermissionConverter.converterPermissionListOBtoDTO(temp);
     }
 
     @Override
     public PermissionDTO findByName(String aName) {
-        List<PermissionOB> temp = permissionRepository.findAll();
-
-        for (PermissionOB element : temp){
-            String name = element.getName();
-            if (name == aName) return Converters.converterPermissionOBtoDTO(element);
-        }
-        return null;
+        PermissionOB temp = permissionRepository.findPermissionByName(aName);
+        return PermissionConverter.converterPermissionOBtoDTO(temp);
     }
 
     @Override
