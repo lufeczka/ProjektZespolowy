@@ -14,10 +14,10 @@ import java.util.List;
  */
 @Repository
 public interface IHistoryRepository extends JpaRepository<HistoryOB,Long> {
-    @Query("SELECT h FROM HistoryOB WHERE h.date = ?1 AND h.user.id = ?2")
+    @Query("SELECT h FROM HistoryOB h WHERE h.date = ?1 AND h.user.id = ?2")
     List<HistoryOB> findHistoryByDateAndUser (Date aDate, Long aId);
-    @Query("SELECT h FROM HistoryOB WHERE h.date = ?1")
+    @Query("SELECT h FROM HistoryOB h WHERE h.date = ?1")
     List<HistoryOB> findHistoryByDate (Date aDate);
-    @Query("SELECT h FROM HistoryOB WHERE h.user.id = ?1")
+    @Query("SELECT h FROM HistoryOB h WHERE h.user.id = ?1")
     List<HistoryOB> findHistoryByUser (Long aId);
 }

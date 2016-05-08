@@ -15,15 +15,15 @@ import java.util.List;
  */
 @Repository
 public interface ITicketRepository extends JpaRepository<TicketOB,Long> {
-    @Query("SELECT t FROM TicketOB WHERE t.kind = ?1")
+    @Query("SELECT t FROM TicketOB t WHERE t.kind = ?1")
     List<TicketOB> findByTicketType (TicketType type);
-    @Query("SELECT t FROM TicketOB WHERE t.type = ?1")
+    @Query("SELECT t FROM TicketOB t WHERE t.type = ?1")
     List<TicketOB> findByType (Type type);
-    @Query("SELECT t FROM TicketOB WHERE t.user.id = ?1")
+    @Query("SELECT t FROM TicketOB t WHERE t.user.id = ?1")
     List<TicketOB> findByUser (Long aId);
-    @Query("SELECT t FROM TicketOB WHERE t.priority = ?1")
+    @Query("SELECT t FROM TicketOB t WHERE t.priority = ?1")
     List<TicketOB> findByPriority (PriorityOB aPriorityOB);
-    @Query("SELECT t FROM TicketOB WHERE t.project.id = ?1")
+    @Query("SELECT t FROM TicketOB t WHERE t.project.id = ?1")
     List<TicketOB> findByProject (Long aId);
 
 }
