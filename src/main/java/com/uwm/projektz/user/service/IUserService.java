@@ -26,13 +26,9 @@ public interface IUserService {
     List<UserDTO> findUsersBySurname(String aSurname);
     List<UserDTO> findUsersByNameAndSurname(String aName,String aSurname);
     List<UserDTO> findUsersByRole(RoleDTO aRoleDTO);
-    //tylko gdy klucz znajduje się po stronie projektu
-    List<UserDTO> findUsersByProject(ProjectDTO aProjectDTO);
-
 
     //UPDATE
     UserDTO updateUserActivity(Long aId,Boolean aActive);
-    UserDTO updateUser(UserDTO aUserDTO);//PUT
     UserDTO updateUserLogin(Long aId, String aLogin);
     UserDTO updateUserEmail(Long aId,String aName);
     UserDTO updatePermissionsListForUser(Long aId, PermissionDTO aPermissionDTO);

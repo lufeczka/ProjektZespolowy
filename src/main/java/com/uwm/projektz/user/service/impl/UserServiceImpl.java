@@ -6,7 +6,9 @@ import com.uwm.projektz.permission.ob.PermissionOB;
 import com.uwm.projektz.project.converter.ProjectConverter;
 import com.uwm.projektz.project.dto.ProjectDTO;
 import com.uwm.projektz.project.ob.ProjectOB;
+import com.uwm.projektz.role.converter.RoleConverter;
 import com.uwm.projektz.role.dto.RoleDTO;
+import com.uwm.projektz.user.converter.UserConverter;
 import com.uwm.projektz.user.dto.UserDTO;
 import com.uwm.projektz.user.ob.UserOB;
 import com.uwm.projektz.user.repository.IUserRepository;
@@ -49,91 +51,109 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public UserDTO updateUserActivity(Long aId,Boolean aActive) {
-        return null;
+        UserOB user = userRepository.findOne(aId);
+        user.setActive(aActive);
+        userRepository.save(user);
+        return UserConverter.converterUserOBtoDTO(user);
     }
 
     @Override
     public UserDTO findUserById(Long aId) {
-        return null;
+        return UserConverter.converterUserOBtoDTO(userRepository.findOne(aId));
     }
 
     @Override
     public List<UserDTO> findAllUsers() {
-        return null;
+        return UserConverter.converterUserListOBtoDTO(userRepository.findAll());
     }
 
     @Override
     public List<UserDTO> findUsersByActivity(Boolean aActive) {
-        return null;
+        List<UserOB> users = userRepository.findUserByActivity(aActive);
+        return UserConverter.converterUserListOBtoDTO(users);
     }
 
     @Override
     public UserDTO findUserByLogin(String aLogin) {
-        return null;
+        UserOB user = userRepository.findUserByLogin(aLogin);
+        return UserConverter.converterUserOBtoDTO(user);
     }
 
     @Override
     public UserDTO findUserByEmail(String aEmail) {
-        return null;
+        UserOB user = userRepository.findUserByEmail(aEmail);
+        return UserConverter.converterUserOBtoDTO(user);
     }
 
     @Override
     public List<UserDTO> findUsersByName(String aName) {
-        return null;
+        List<UserOB> user = userRepository.findUserByName(aName);
+        return UserConverter.converterUserListOBtoDTO(user);
     }
 
     @Override
     public List<UserDTO> findUsersBySurname(String aSurname) {
-        return null;
+        List<UserOB> user = userRepository.findUserBySurname(aSurname);
+        return UserConverter.converterUserListOBtoDTO(user);
     }
 
     @Override
     public List<UserDTO> findUsersByNameAndSurname(String aName, String aSurname) {
-        return null;
+        List<UserOB> users = userRepository.findUserByNameAndSurname(aName,aSurname);
+        return UserConverter.converterUserListOBtoDTO(users);
     }
 
     @Override
     public List<UserDTO> findUsersByRole(RoleDTO aRoleDTO) {
-        return null;
-    }
-
-    @Override
-    public List<UserDTO> findUsersByProject(ProjectDTO aProjectDTO) {
-        return null;
+        List<UserOB> users = userRepository.findUserByRole(RoleConverter.converterRoleDTOtoOB(aRoleDTO));
+        return UserConverter.converterUserListOBtoDTO(users);
     }
 
     @Override
     public UserDTO saveUser(UserDTO aUserDTO) {
-        return null;
+        userRepository.save(UserConverter.converterUserDTOtoOB(aUserDTO));
+        return aUserDTO;
     }
 
-    @Override
-    public UserDTO updateUser(UserDTO aUserDTO) {
-        return null;
-    }
 
     @Override
     public UserDTO updateUserLogin(Long aId, String aLogin) {
-        return null;
+        UserOB user = userRepository.findOne(aId);
+        user.setLogin(aLogin);
+        userRepository.save(user);
+        return UserConverter.converterUserOBtoDTO(user);
     }
 
     @Override
-    public UserDTO updateUserEmail(Long aId, String aName) {
-        return null;
+    public UserDTO updateUserEmail(Long aId, String aEmail){
+        UserOB user = userRepository.findOne(aId);
+        user.setEmail(aEmail);
+        userRepository.save(user);
+        return UserConverter.converterUserOBtoDTO(user);
     }
 
     @Override
     public UserDTO updatePermissionsListForUser(Long aId, PermissionDTO aPermissionDTO) {
-        return null;
+        UserOB user = userRepository.findOne(aId);
+        List<PermissionOB> permissions = user.getPermissions();
+        permissions.add(PermissionConverter.converterPermissionDTOtoOB(aPermissionDTO));
+        user.setPermissions(permissions);
+        userRepository.save(user);
+        return UserConverter.converterUserOBtoDTO(user);
     }
 
     @Override
     public UserDTO updateProjectListForUser(Long aId, ProjectDTO aProjectDTO) {
-        return null;
+        UserOB user = userRepository.findOne(aId);
+        List<ProjectOB> projects = user.getProjects();
+        projects.add(ProjectConverter.converterProjectDTOtoOB(aProjectDTO));
+        user.setProjects(projects);
+        userRepository.save(user);
+        return UserConverter.converterUserOBtoDTO(user);
     }
 
     @Override
     public void deletUser(Long aId) {
-
+        userRepository.delete(aId);
     }
 }

@@ -17,7 +17,7 @@ import java.util.List;
 public interface IAttachmentRepository extends JpaRepository<AttachmentOB,Long> {
     @Query("SELECT a FROM AttachmentOB a WHERE a.user.id = ?1")
     List<AttachmentOB> findAllAttachmentsOfUser (Long aUserID);
-    @Query("SELECT a FROM AttachmentOB a   WHERE a.name = ?1")
+    @Query("SELECT a FROM AttachmentOB a WHERE a.name = ?1")
     List<AttachmentOB> findAttachmentByName (String aName);
     @Query("SELECT a FROM AttachmentOB a WHERE a.file_name = ?1")
     List<AttachmentOB> findAttachmentByFileName (String aFileName);

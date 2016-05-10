@@ -42,4 +42,26 @@ public class UserConverter {
         return new UserOB(aUserDTO.getId(),aUserDTO.getTechDate(),aUserDTO.getName(),aUserDTO.getSurname(),aUserDTO.getEmail(),aUserDTO.getLogin(),aUserDTO.getMd5pass(),aUserDTO.getActive(),RoleConverter.converterRoleDTOtoOB(aUserDTO.getRole()), ProjectConverter.converterProjectListDTOtoOB(aUserDTO.getProjects()),PermissionConverter.converterPermissionListDTOtoOB(aUserDTO.getPermissions()));
 
     }
+
+//Lists
+    public static List<UserDTO> converterUserListOBtoDTO (List<UserOB> aUserListOB){
+        if (aUserListOB == null) return null;
+
+        List<UserDTO> temp = new ArrayList<UserDTO>();
+
+        for (UserOB element : aUserListOB){
+            temp.add(converterUserOBtoDTO(element));
+        }
+        return temp;
+    }
+    public static List<UserOB> converterUserListDTOtoOB (List<UserDTO> aUserListDTO){
+        if (aUserListDTO == null) return null;
+
+        List<UserOB> temp = new ArrayList<UserOB>();
+
+        for (UserDTO element : aUserListDTO){
+            temp.add(converterUserDTOtoOB(element));
+        }
+        return temp;
+    }
 }
