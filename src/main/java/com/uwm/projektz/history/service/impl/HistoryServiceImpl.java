@@ -26,8 +26,8 @@ public class HistoryServiceImpl implements IHistoryService{
     IHistoryRepository historyRepository;
 
     @Override
-    public List<HistoryDTO> findHistoryByDateAndUser(Date aDate, UserDTO aUserDTO) {
-        List<HistoryOB> histories = historyRepository.findHistoryByDateAndUser(aDate,aUserDTO.getId());
+    public List<HistoryDTO> findHistoryByDateAndUser(Date aDate, Long aId) {
+        List<HistoryOB> histories = historyRepository.findHistoryByDateAndUser(aDate,aId);
         return HistoryConverter.converterHistoryListOBtoDTO(histories);
     }
 
@@ -44,8 +44,8 @@ public class HistoryServiceImpl implements IHistoryService{
     }
 
     @Override
-    public List<HistoryDTO> findHistoryByUser(UserDTO aUserDTO) {
-        List<HistoryOB> histories = historyRepository.findHistoryByUser(aUserDTO.getId());
+    public List<HistoryDTO> findHistoryByUser(Long aId) {
+        List<HistoryOB> histories = historyRepository.findHistoryByUser(aId);
         return HistoryConverter.converterHistoryListOBtoDTO(histories);
     }
 

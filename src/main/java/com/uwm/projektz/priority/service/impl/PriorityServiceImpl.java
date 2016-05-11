@@ -5,6 +5,7 @@ import com.uwm.projektz.priority.dto.PriorityDTO;
 import com.uwm.projektz.priority.ob.PriorityOB;
 import com.uwm.projektz.priority.repository.IPriorityRepository;
 import com.uwm.projektz.priority.service.IPriorityService;
+import com.uwm.projektz.user.converter.UserConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,8 +24,7 @@ public class PriorityServiceImpl implements IPriorityService {
 
     @Override
     public PriorityDTO savePriority(PriorityDTO aProrityDTO) {
-        priorityRepository.save(PriorityConverter.converterPriorityDTOtoOB(aProrityDTO));
-        return null;
+        return PriorityConverter.converterPriorityOBtoDTO(priorityRepository.save(PriorityConverter.converterPriorityDTOtoOB(aProrityDTO)));
     }
 
     @Override

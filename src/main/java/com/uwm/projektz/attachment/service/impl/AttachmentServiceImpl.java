@@ -1,13 +1,20 @@
 package com.uwm.projektz.attachment.service.impl;
 
+import com.uwm.projektz.MyServerException;
 import com.uwm.projektz.attachment.converter.AttachmentConverter;
 import com.uwm.projektz.attachment.dto.AttachmentDTO;
+import com.uwm.projektz.attachment.dto.AttachmentDTOCreate;
 import com.uwm.projektz.attachment.ob.AttachmentOB;
 import com.uwm.projektz.attachment.repository.IAttachmentRepository;
 import com.uwm.projektz.attachment.service.IAttachmentSerivce;
+import com.uwm.projektz.binary.ob.BinaryOB;
+import com.uwm.projektz.binary.repository.IBinaryRepository;
 import com.uwm.projektz.enums.Type;
 import com.uwm.projektz.user.dto.UserDTO;
+import com.uwm.projektz.user.ob.UserOB;
+import com.uwm.projektz.user.repository.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,6 +32,12 @@ public class AttachmentServiceImpl implements IAttachmentSerivce {
     @Autowired
     IAttachmentRepository attachmentRepository;
 
+    @Autowired
+    IBinaryRepository binaryRepository;
+
+    @Autowired
+    IUserRepository userRepository;
+
     @Override
     public AttachmentDTO findAttachmentById(Long aId) {
         return AttachmentConverter.converterAttachmentOBtoDTO(attachmentRepository.findOne(aId));
@@ -36,8 +49,8 @@ public class AttachmentServiceImpl implements IAttachmentSerivce {
     }
 
     @Override
-    public List<AttachmentDTO> findAllAttachmentsForUser(UserDTO aUserDTO) {
-        List<AttachmentOB> attachemnts = attachmentRepository.findAllAttachmentsOfUser(aUserDTO.getId());
+    public List<AttachmentDTO> findAllAttachmentsForUser(Long aId) {
+        List<AttachmentOB> attachemnts = attachmentRepository.findAllAttachmentsOfUser(aId);
         return AttachmentConverter.converterAttachmentListOBtoDTO(attachemnts);
     }
 
@@ -77,8 +90,13 @@ public class AttachmentServiceImpl implements IAttachmentSerivce {
     }
 
     @Override
-    public AttachmentDTO saveAttachment(AttachmentDTO aAttachmentDTO) {
-        attachmentRepository.save(AttachmentConverter.converterAttachmentDTOtoOB(aAttachmentDTO));
-        return aAttachmentDTO;
+    public AttachmentDTO saveAttachment(AttachmentDTOCreate aAttachmentDTO) throws MyServerException {
+        UserOB userOB = aAttachmentDTO.getUserId() == null ? null : userRepository.findOne(aAttachmentDTO.getUserId());
+        if(userOB == null) throw  new MyServerException("User not found",HttpStatus.NOT_FOUND);
+        BinaryOB binaryOB = aAttachmentDTO.getBinaryId() == null ? null : binaryRepository.findOne(aAttachmentDTO.getBinaryId());
+        if(binaryOB == null) throw  new MyServerException("Binary not found",HttpStatus.NOT_FOUND);
+        AttachmentOB attachmentOB = aAttachmentDTO.getId() == null ? null : attachmentRepository.findOne(aAttachmentDTO.getId());
+        if(attachmentOB == null) attachmentOB = new AttachmentOB(aAttachmentDTO.getType(),aAttachmentDTO.getName(),aAttachmentDTO.getFile_name(),aAttachmentDTO.getMine_type(),binaryOB,userOB);
+        return AttachmentConverter.converterAttachmentOBtoDTO(attachmentRepository.save(attachmentOB));
     }
 }

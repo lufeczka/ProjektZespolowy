@@ -2,7 +2,6 @@ package com.uwm.projektz.history.api;
 
 import com.uwm.projektz.history.dto.HistoryDTO;
 import com.uwm.projektz.history.service.IHistoryService;
-import com.uwm.projektz.user.dto.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,10 +36,10 @@ public class HistoryController {
     }
 
 
-    @RequestMapping(value="/getByUser/{user}",method = RequestMethod.GET)
+    @RequestMapping(value="/getByUser/{user.id}",method = RequestMethod.GET)
     @ResponseBody
-    public ResponseEntity<List<HistoryDTO>> findHistoryByUser(@PathVariable("user") UserDTO aUserDTO){
-        return new ResponseEntity<>(historyService.findHistoryByUser(aUserDTO),HttpStatus.OK);
+    public ResponseEntity<List<HistoryDTO>> findHistoryByUser(@PathVariable("user.id") Long aId){
+        return new ResponseEntity<>(historyService.findHistoryByUser(aId),HttpStatus.OK);
     }
 
     @RequestMapping(value="/getByDate/{date}",method = RequestMethod.GET)
@@ -50,10 +49,10 @@ public class HistoryController {
     }
 
 
-    @RequestMapping(value="/getByUserAndDate/{user},{date}",method = RequestMethod.GET)
+    @RequestMapping(value="/getByUserAndDate/{date},{user.id}",method = RequestMethod.GET)
     @ResponseBody
-    public ResponseEntity<List<HistoryDTO>> findByUserAndDate( @PathVariable("date") Date aDate,@RequestBody UserDTO aUserDTO){
-        return new ResponseEntity<>(historyService.findHistoryByDateAndUser(aDate,aUserDTO),HttpStatus.OK);
+    public ResponseEntity<List<HistoryDTO>> findByUserAndDate( @PathVariable("date") Date aDate,@PathVariable("user.id") Long aId){
+        return new ResponseEntity<>(historyService.findHistoryByDateAndUser(aDate, aId),HttpStatus.OK);
     }
 
 
@@ -70,4 +69,6 @@ public class HistoryController {
         historyService.deleteHistoryById(aId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+
 }

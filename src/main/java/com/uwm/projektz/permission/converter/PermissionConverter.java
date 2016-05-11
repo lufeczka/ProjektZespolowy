@@ -41,7 +41,7 @@ public class PermissionConverter {
     public static List<PermissionOB> converterPermissionListDTOtoOB(List<PermissionDTO> aPermissionList)
     {
         if (aPermissionList == null) return null;
-        List<PermissionOB> temp = new ArrayList<PermissionOB>();
+        List<PermissionOB> temp = new ArrayList<>();
 
         for(PermissionDTO element : aPermissionList)
         {
@@ -52,7 +52,7 @@ public class PermissionConverter {
     public static List<PermissionDTO> converterPermissionListOBtoDTO(List<PermissionOB> aPermissionList)
     {
         if (aPermissionList == null) return null;
-        List<PermissionDTO> temp = new ArrayList<PermissionDTO>();
+        List<PermissionDTO> temp = new ArrayList<>();
 
         for(PermissionOB element : aPermissionList)
         {

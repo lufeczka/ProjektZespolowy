@@ -1,9 +1,10 @@
 package com.uwm.projektz.user.api;
 
+import com.uwm.projektz.MyServerException;
 import com.uwm.projektz.permission.dto.PermissionDTO;
 import com.uwm.projektz.project.dto.ProjectDTO;
-import com.uwm.projektz.role.dto.RoleDTO;
 import com.uwm.projektz.user.dto.UserDTO;
+import com.uwm.projektz.user.dto.UserDTOCreate;
 import com.uwm.projektz.user.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -72,85 +73,102 @@ public class UserController {
     }
 
 
-    @RequestMapping(value="/getBySurame/{name},{surname}",method = RequestMethod.GET)
+    @RequestMapping(value="/getByNameAndSurname/{name},{surname}",method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<List<UserDTO>> findUsersByNameAndSurname(@PathVariable("name") String aName,@PathVariable("surname") String aSurname){
         return new ResponseEntity<>(userService.findUsersByNameAndSurname(aName,aSurname),HttpStatus.OK);
     }
 
-    @RequestMapping(value="/getByRole/{role}",method = RequestMethod.GET)
+    @RequestMapping(value="/getByRole/{role.name}",method = RequestMethod.GET)
     @ResponseBody
-    public ResponseEntity<List<UserDTO>> findUsersByRole(@RequestBody RoleDTO aRole){
+    public ResponseEntity<List<UserDTO>> findUsersByRole(@PathVariable("role.name") String aRole){
         return new ResponseEntity<>(userService.findUsersByRole(aRole),HttpStatus.OK);
     }
 
     //CREATE & EDIT
     @RequestMapping(value="/saveUser",method = RequestMethod.POST, consumes ="application/json", produces = "application/json")
     @ResponseBody
-    public ResponseEntity<UserDTO> saveUser(@RequestBody UserDTO aUserDTO){
+    public ResponseEntity<UserDTO> saveUser(@RequestBody UserDTOCreate aUserDTO){
         return new ResponseEntity<>(userService.saveUser(aUserDTO),HttpStatus.OK);
     }
 
-//    //CREATE & EDIT
-//    @RequestMapping(value="/changeUser",method = RequestMethod.PUT,consumes = "aplication/json",produces = "appliaction/json")
-//    @ResponseBody
-//    public ResponseEntity<UserDTO> updateUser(@RequestBody UserDTO aUserDTO){
-//        return new ResponseEntity<>(userService.updateUser(aUserDTO),HttpStatus.OK);
-//    }
 
     @RequestMapping(value="/changeActivity/{id},{active}",method = RequestMethod.POST,consumes = "aplication/json",produces = "appliaction/json")
     @ResponseBody
-    public ResponseEntity<UserDTO> updateUserActivity(@PathVariable("id") Long aId ,@PathVariable("active") Boolean aActive){
-        return new ResponseEntity<UserDTO>(userService.updateUserActivity(aId,aActive),HttpStatus.OK);
+    public ResponseEntity<Void> updateUserActivity(@PathVariable("id") Long aId ,@PathVariable("active") Boolean aActive){
+        try {
+            userService.updateUserActivity(aId, aActive);
+            return new ResponseEntity<Void>(HttpStatus.OK);
+        }catch (MyServerException e) {
+            return new ResponseEntity<Void>(e.getHeaders(), e.getStatus());
+        }
     }
+
+
     @RequestMapping(value="/changeLogin/{id},{login}", method = RequestMethod.POST,consumes = "aplication/json",produces = "appliaction/json")
     @ResponseBody
-    public ResponseEntity<UserDTO> updateUser(@PathVariable("id")Long aId, @PathVariable("login") String aLogin){
-        return new ResponseEntity<>(userService.updateUserLogin(aId,aLogin),HttpStatus.OK);
+    public ResponseEntity<Void> updateUserLogin(@PathVariable("id")Long aId, @PathVariable("login") String aLogin){
+
+        try {
+            userService.updateUserLogin(aId,aLogin);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }catch (MyServerException e) {
+            return new ResponseEntity<>(e.getHeaders(), e.getStatus());
+        }
     }
 
     @RequestMapping(value="/changeEmail/{id},{email}", method = RequestMethod.POST,consumes = "aplication/json",produces = "appliaction/json")
     @ResponseBody
-    public ResponseEntity<UserDTO> updateUserEmail(@PathVariable("id")Long aId, @PathVariable("email") String aEmail){
-        return new ResponseEntity<>(userService.updateUserEmail(aId,aEmail),HttpStatus.OK);
+    public ResponseEntity<Void> updateUserEmail(@PathVariable("id")Long aId, @PathVariable("email") String aEmail){
+        try
+        {
+            userService.updateUserEmail(aId,aEmail);
+            return new ResponseEntity<Void>(HttpStatus.OK);
+        }catch (MyServerException e) {
+            return new ResponseEntity<Void>(e.getHeaders(), e.getStatus());
+        }
     }
 
-    @RequestMapping(value="/addPermsissionToUser/{id}", method = RequestMethod.POST,consumes = "aplication/json",produces = "appliaction/json")
+    @RequestMapping(value="/updatePermissionsForUser/{id}", method = RequestMethod.POST,consumes = "aplication/json",produces = "appliaction/json")
     @ResponseBody
-    public ResponseEntity<UserDTO> updatePermissionListForUser(@PathVariable("id")Long aId, @RequestBody PermissionDTO aPermissionDTO) {
-        return new ResponseEntity<>(userService.updatePermissionsListForUser(aId,aPermissionDTO),HttpStatus.OK);
+    public ResponseEntity<Void> updatePermissionListForUser(@PathVariable("id")Long aId, @RequestBody List<PermissionDTO> aPermissionDTO) {
+        try
+        {
+            userService.updatePermissionsListForUser(aId,aPermissionDTO);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }catch (MyServerException e) {
+            return new ResponseEntity<Void>(e.getHeaders(), e.getStatus());
+        }
+
     }
 
-    @RequestMapping(value="/addProjectToUser/{id}", method = RequestMethod.POST,consumes = "aplication/json",produces = "appliaction/json")
+    @RequestMapping(value="/updateProjectsForUser/{id}", method = RequestMethod.POST,consumes = "aplication/json",produces = "appliaction/json")
     @ResponseBody
-    public ResponseEntity<UserDTO> updateProjectListForUser(@PathVariable("id") Long aId, @RequestBody ProjectDTO aProjectDTO){
-        return new ResponseEntity<>(userService.updateProjectListForUser(aId, aProjectDTO),HttpStatus.OK);
+    public ResponseEntity<Void> updateProjectListForUser(@PathVariable("id") Long aId, @RequestBody List<ProjectDTO> aProjectDTO){
+        try
+        {
+            userService.updateProjectListForUser(aId, aProjectDTO);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }catch (MyServerException e) {
+            return new ResponseEntity<Void>(e.getHeaders(), e.getStatus());
+        }
+
+
     }
 
 
     //DELETE
    @RequestMapping(value="/removeUserById/{id}",method = RequestMethod.DELETE)
     @ResponseBody
-    public ResponseEntity<UserDTO> deleteUser(@PathVariable("id") Long aId){
-        userService.deletUser(aId);
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<Void> deleteUser(@PathVariable("id") Long aId){
+       try {
+           userService.deletUser(aId);
+           return new ResponseEntity<>(HttpStatus.OK);
+       }catch (MyServerException e){
+           return new ResponseEntity<Void>(e.getHeaders(),e.getStatus());
+       }
+
     }
-
-    @RequestMapping(value="/removeProjectFromUser/{id}",method = RequestMethod.DELETE)
-    @ResponseBody
-    public ResponseEntity<UserDTO> deleteProjectFromUser(@PathVariable("id") Long aId,@RequestBody ProjectDTO aProjectDTO){
-        userService.deletProjectFromUser(aId,aProjectDTO);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-    @RequestMapping(value="/removePermissionFromUser/{id}",method = RequestMethod.DELETE)
-    @ResponseBody
-    public ResponseEntity<UserDTO> deletePermissionFromUser(@PathVariable("id") Long aId,@RequestBody PermissionDTO aPermissionDTO){
-        userService.deletPermissionFromUser(aId, aPermissionDTO);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-
 
 
 }

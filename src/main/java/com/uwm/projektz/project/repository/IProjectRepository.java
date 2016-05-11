@@ -12,10 +12,10 @@ import java.util.List;
  */
 @Repository
 public interface IProjectRepository extends JpaRepository<ProjectOB,Long> {
-    @Query("SELECT p FROM ProjectOB p WHERE p.name = ?1")
+    @Query("SELECT p FROM ProjectOB p WHERE p.name LIKE ?1")
     ProjectOB findProjectByName (String aName);
-    @Query("SELECT p FROM ProjectOB p WHERE p.priority.id = ?1")
-    List<ProjectOB> findProjectByPriority (Long aId);
+    @Query("SELECT p FROM ProjectOB p WHERE p.priority.name LIKE ?1")
+    List<ProjectOB> findProjectByPriority (String aName);
     @Query("SELECT u.projects FROM UserOB u WHERE u.id = ?1")
     List<ProjectOB> findUserProjects (Long aId);
 }

@@ -29,6 +29,15 @@ public class AttachmentOB extends BaseOB {
 
     public AttachmentOB(){}
 
+    public AttachmentOB(Type type, String name, String file_name, String mine_type, BinaryOB binary, UserOB user) {
+        this.type = type;
+        this.name = name;
+        this.file_name = file_name;
+        this.mine_type = mine_type;
+        this.binary = binary;
+        this.user = user;
+    }
+
     public AttachmentOB(Long id, Date techdate, Type type, String name, String file_name, String mine_type, BinaryOB binary, UserOB user) {
         super(id,techdate);
         this.type = type;

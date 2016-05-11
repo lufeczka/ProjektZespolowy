@@ -23,8 +23,7 @@ public class PermissionServiceImpl implements IPermissionService {
 
     @Override
     public PermissionDTO savePermission(PermissionDTO aPermissionDTO) {
-        permissionRepository.save(PermissionConverter.converterPermissionDTOtoOB(aPermissionDTO));
-        return aPermissionDTO;
+        return PermissionConverter.converterPermissionOBtoDTO(permissionRepository.save(PermissionConverter.converterPermissionDTOtoOB(aPermissionDTO)));
     }
 
     @Override

@@ -21,6 +21,7 @@ public class HistoryOB extends BaseOB {
     @JoinColumn(name = "USER_ID" , referencedColumnName = "ID")
     UserOB user;
     String description;
+    @Column(columnDefinition = "DATE")
     Date date;
     @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.REMOVE)
     @JoinColumn(name = "HISTORY_ID", referencedColumnName = "ID")

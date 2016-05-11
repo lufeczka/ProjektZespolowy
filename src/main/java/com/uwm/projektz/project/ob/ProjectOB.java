@@ -26,6 +26,13 @@ public class ProjectOB extends BaseOB {
 
     public ProjectOB(){}
 
+    public ProjectOB(String name, String descritpion, String version, PriorityOB priority) {
+        this.name = name;
+        this.descritpion = descritpion;
+        this.version = version;
+        this.priority = priority;
+    }
+
     public ProjectOB(Long id, Date techdate, String name, String descritpion, String version, PriorityOB priority) {
         super(id,techdate);
         this.name = name;

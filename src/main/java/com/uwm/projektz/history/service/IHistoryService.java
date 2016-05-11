@@ -18,9 +18,9 @@ public interface IHistoryService  {
     //dodawanie attachmentu
 
     //READ
-    List<HistoryDTO> findHistoryByDateAndUser(Date aDate,UserDTO aUserDTO);
+    List<HistoryDTO> findHistoryByDateAndUser(Date aDate,Long aId);
     List<HistoryDTO> findHistoryByDate(Date aDate);
-    List<HistoryDTO> findHistoryByUser(UserDTO aUserDTO);
+    List<HistoryDTO> findHistoryByUser(Long aLogin);
     HistoryDTO findHistoryById(Long aId);
     List<HistoryDTO> findAllHistory();
 

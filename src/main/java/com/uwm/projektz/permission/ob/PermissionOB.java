@@ -16,8 +16,13 @@ public class PermissionOB extends BaseOB {
     String name;
 
     public PermissionOB(){}
+
     public PermissionOB(Long id, Date techdate, String name) {
         super(id,techdate);
+        this.name = name;
+    }
+
+    public PermissionOB(String name) {
         this.name = name;
     }
 

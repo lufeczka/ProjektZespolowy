@@ -20,7 +20,7 @@ public interface IUserRepository extends JpaRepository<UserOB,Long> {
     List<UserOB> findUserByActivity (Boolean aActive);
     @Query("SELECT u FROM UserOB u WHERE u.login = ?1")
     UserOB findUserByLogin (String aLogin);
-    @Query("SELECT u FROM UserOB u WHERE u.email = ?1")
+    @Query("SELECT u FROM UserOB u WHERE u.email LIKE ?1")
     UserOB findUserByEmail (String aEmail);
     @Query("SELECT u FROM UserOB u WHERE u.name = ?1")
     List<UserOB> findUserByName (String aName);
@@ -28,8 +28,8 @@ public interface IUserRepository extends JpaRepository<UserOB,Long> {
     List<UserOB> findUserBySurname (String aSurname);
     @Query("SELECT u FROM UserOB u WHERE u.name = ?1 AND u.surname = ?2")
     List<UserOB> findUserByNameAndSurname (String aName, String aSurname);
-    @Query("SELECT u FROM UserOB u WHERE u.role = ?1")
-    List<UserOB> findUserByRole (RoleOB aRoleOB);
+    @Query("SELECT u FROM UserOB u WHERE u.role.name = ?1")
+    List<UserOB> findUserByRole(String aRoleOB);
 
 
 }

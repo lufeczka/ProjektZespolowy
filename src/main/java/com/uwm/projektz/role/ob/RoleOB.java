@@ -21,6 +21,12 @@ public class RoleOB extends BaseOB {
 
 
     public RoleOB(){}
+
+    public RoleOB(String name, List<PermissionOB> permissions) {
+        this.name = name;
+        this.permissions = permissions;
+    }
+
     public RoleOB(Long id, Date techdate, String name, List<PermissionOB> permissions) {
         super(id,techdate);
         this.name = name;

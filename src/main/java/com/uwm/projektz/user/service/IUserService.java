@@ -1,9 +1,10 @@
 package com.uwm.projektz.user.service;
 
+import com.uwm.projektz.MyServerException;
 import com.uwm.projektz.permission.dto.PermissionDTO;
 import com.uwm.projektz.project.dto.ProjectDTO;
-import com.uwm.projektz.role.dto.RoleDTO;
 import com.uwm.projektz.user.dto.UserDTO;
+import com.uwm.projektz.user.dto.UserDTOCreate;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ import java.util.List;
 public interface IUserService {
 
     //CREATE & EDIT
-    UserDTO saveUser(UserDTO aUserDTO);
+    UserDTO saveUser(UserDTOCreate aUserDTO);
 
     //READ
     UserDTO findUserById(Long aId);
@@ -25,17 +26,16 @@ public interface IUserService {
     List<UserDTO> findUsersByName(String aName);
     List<UserDTO> findUsersBySurname(String aSurname);
     List<UserDTO> findUsersByNameAndSurname(String aName,String aSurname);
-    List<UserDTO> findUsersByRole(RoleDTO aRoleDTO);
+    List<UserDTO> findUsersByRole(String aRole);
 
     //UPDATE
-    UserDTO updateUserActivity(Long aId,Boolean aActive);
-    UserDTO updateUserLogin(Long aId, String aLogin);
-    UserDTO updateUserEmail(Long aId,String aName);
-    UserDTO updatePermissionsListForUser(Long aId, PermissionDTO aPermissionDTO);
-    UserDTO updateProjectListForUser(Long aId, ProjectDTO aProjectDTO);
+    void updateUserActivity(Long aId,Boolean aActive) throws MyServerException;
+    void updateUserLogin(Long aId, String aLogin) throws MyServerException;
+    void updateUserEmail(Long aId,String aName) throws MyServerException;
+    void updateUserRole(Long aId,String aName) throws MyServerException;
+    void updatePermissionsListForUser(Long aId, List<PermissionDTO> aPermissionDTO) throws MyServerException;
+    void updateProjectListForUser(Long aId, List<ProjectDTO> aProjectDTO) throws MyServerException;
 
     //DELETE
-    void deletProjectFromUser(Long aId,ProjectDTO aPojectDTO);//odłączenie projektu od listy
-    void deletPermissionFromUser(Long aId,PermissionDTO aPermsissionDTO);//odlaaczenie permission od listy
-    void deletUser(Long aId);
+    void deletUser(Long aId) throws  MyServerException;
 }

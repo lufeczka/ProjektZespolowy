@@ -17,6 +17,11 @@ public class PriorityOB extends BaseOB {
 
     public PriorityOB(){}
 
+    public PriorityOB(String name, String responseTime) {
+        this.name = name;
+        this.responseTime = responseTime;
+    }
+
     public PriorityOB(Long id, Date techdate, String name, String responseTime)
     {
         super(id,techdate);

@@ -1,12 +1,10 @@
 package com.uwm.projektz.attachment.api;
 
-import com.google.common.io.Files;
+import com.uwm.projektz.MyServerException;
 import com.uwm.projektz.attachment.dto.AttachmentDTO;
+import com.uwm.projektz.attachment.dto.AttachmentDTOCreate;
 import com.uwm.projektz.attachment.service.IAttachmentSerivce;
-import com.uwm.projektz.binary.dto.BinaryDTO;
 import com.uwm.projektz.enums.Type;
-import com.uwm.projektz.user.dto.UserDTO;
-import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,8 +28,12 @@ public class AttachmentController {
 
     @RequestMapping(value ="/saveAttachment", method = RequestMethod.POST,consumes ="application/json", produces = "application/json")
     @ResponseBody
-    public ResponseEntity<AttachmentDTO> saveAttachment(@RequestBody AttachmentDTO aAttachmentDTO, File aFile){
-        return new ResponseEntity<>(attachmentSerivce.saveAttachment(aAttachmentDTO), HttpStatus.OK);
+    public ResponseEntity<AttachmentDTO> saveAttachment(@RequestBody AttachmentDTOCreate aAttachmentDTO){
+        try {
+            return new ResponseEntity<>(attachmentSerivce.saveAttachment(aAttachmentDTO), HttpStatus.OK);
+        }catch (MyServerException e){
+            return new ResponseEntity<>(e.getHeaders(),e.getStatus());
+        }
     }
 
     @RequestMapping(value = "/getAttachmentById/{id}", method = RequestMethod.GET)
@@ -71,10 +73,10 @@ public class AttachmentController {
         return new ResponseEntity<>(attachmentSerivce.findAAtachemntByMineTypeAndName(aMineType,aName), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/getByUser/{user}", method = RequestMethod.GET)
+    @RequestMapping(value = "/getByUser/{user.id}", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseEntity<List<AttachmentDTO>> findAllAttachmentsForUser(@RequestBody UserDTO aUserDTO){
-        return new ResponseEntity<>(attachmentSerivce.findAllAttachmentsForUser(aUserDTO), HttpStatus.OK);
+    public ResponseEntity<List<AttachmentDTO>> findAllAttachmentsForUser(@PathVariable("user.id") Long aId){
+        return new ResponseEntity<>(attachmentSerivce.findAllAttachmentsForUser(aId), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/getByType/{type}", method = RequestMethod.GET)
