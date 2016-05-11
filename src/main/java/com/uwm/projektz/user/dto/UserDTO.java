@@ -22,7 +22,8 @@ public class UserDTO extends BaseDTO {
     List<ProjectDTO> projects = new ArrayList<>();
     List<PermissionDTO> permissions =  new ArrayList<>();
 
-
+    public UserDTO() {
+    }
 
     public UserDTO(Long id, Date techdate, String name, String surname, String email, String login, String md5pass, Boolean active, RoleDTO role, List<ProjectDTO> projects, List<PermissionDTO> permissions) {
         super(id,techdate);

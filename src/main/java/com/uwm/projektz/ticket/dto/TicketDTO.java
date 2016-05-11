@@ -28,8 +28,10 @@ public class TicketDTO extends BaseDTO {
     List<HistoryDTO> histories;
     List<AttachmentDTO> attachments;
 
+    public TicketDTO() {
+    }
 
-    public TicketDTO(Long id, Date techdate,TicketType kind, Type type, String description, UserDTO user, PriorityDTO priority, ProjectDTO project, List<HistoryDTO> histories, List<AttachmentDTO> attachments) {
+    public TicketDTO(Long id, Date techdate, TicketType kind, Type type, String description, UserDTO user, PriorityDTO priority, ProjectDTO project, List<HistoryDTO> histories, List<AttachmentDTO> attachments) {
         super(id,techdate);
         this.kind = kind;
         this.type = type;

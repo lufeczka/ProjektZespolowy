@@ -21,6 +21,9 @@ public class HistoryDTO extends BaseDTO {
     Date date;
     List<AttachmentDTO> attachments;
 
+    public HistoryDTO() {
+    }
+
     public HistoryDTO(Long id, Date techDate, Type type, UserDTO user, String description, Date date, List<AttachmentDTO> attachments) {
         super(id, techDate);
         this.type = type;

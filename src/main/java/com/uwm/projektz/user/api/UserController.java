@@ -91,12 +91,12 @@ public class UserController {
         return new ResponseEntity<>(userService.saveUser(aUserDTO),HttpStatus.OK);
     }
 
-    //CREATE & EDIT
-    @RequestMapping(value="/changeUser",method = RequestMethod.PUT,consumes = "aplication/json",produces = "appliaction/json")
-    @ResponseBody
-    public ResponseEntity<UserDTO> updateUser(@RequestBody UserDTO aUserDTO){
-        return new ResponseEntity<>(userService.updateUser(aUserDTO),HttpStatus.OK);
-    }
+//    //CREATE & EDIT
+//    @RequestMapping(value="/changeUser",method = RequestMethod.PUT,consumes = "aplication/json",produces = "appliaction/json")
+//    @ResponseBody
+//    public ResponseEntity<UserDTO> updateUser(@RequestBody UserDTO aUserDTO){
+//        return new ResponseEntity<>(userService.updateUser(aUserDTO),HttpStatus.OK);
+//    }
 
     @RequestMapping(value="/changeActivity/{id},{active}",method = RequestMethod.POST,consumes = "aplication/json",produces = "appliaction/json")
     @ResponseBody
