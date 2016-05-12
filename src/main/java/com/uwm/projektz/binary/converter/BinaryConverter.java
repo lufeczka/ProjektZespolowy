@@ -3,6 +3,7 @@ package com.uwm.projektz.binary.converter;
 import com.uwm.projektz.attachment.dto.AttachmentDTO;
 import com.uwm.projektz.attachment.ob.AttachmentOB;
 import com.uwm.projektz.binary.dto.BinaryDTO;
+import com.uwm.projektz.binary.dto.BinaryDTOId;
 import com.uwm.projektz.binary.ob.BinaryOB;
 import com.uwm.projektz.history.dto.HistoryDTO;
 import com.uwm.projektz.history.ob.HistoryOB;
@@ -57,4 +58,8 @@ public class BinaryConverter {
         return temp;
     }
 
+    public static BinaryDTOId converterBinaryOBtoBinaryDTOId(BinaryOB binaryOB){
+        if(binaryOB == null) return null;
+        return new BinaryDTOId(binaryOB.getId(),binaryOB.getTechDate());
+    }
 }

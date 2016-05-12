@@ -42,6 +42,18 @@ public class TicketOB extends BaseOB {
 
 
     public TicketOB(){}
+
+    public TicketOB(TicketType kind, Type type, String description, UserOB user, PriorityOB priority, ProjectOB project, List<HistoryOB> histories, List<AttachmentOB> attachments) {
+        this.kind = kind;
+        this.type = type;
+        this.description = description;
+        this.user = user;
+        this.priority = priority;
+        this.project = project;
+        this.histories = histories;
+        this.attachments = attachments;
+    }
+
     public TicketOB(Long id, Date techdate, TicketType kind, Type type, String description, UserOB user, PriorityOB priority, ProjectOB project, List<HistoryOB> histories, List<AttachmentOB> attachments) {
         super(id,techdate);
         this.kind = kind;

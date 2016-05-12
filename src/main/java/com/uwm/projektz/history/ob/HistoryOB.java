@@ -29,8 +29,15 @@ public class HistoryOB extends BaseOB {
 
     public HistoryOB(){}
 
+    public HistoryOB(Type type, UserOB user, String description, Date date, List<AttachmentOB> attachments) {
+        this.type = type;
+        this.user = user;
+        this.description = description;
+        this.date = date;
+        this.attachments = attachments;
+    }
 
-    public HistoryOB(Long id, Date techDate,Type type, UserOB user, String description, Date date, List<AttachmentOB> attachments) {
+    public HistoryOB(Long id, Date techDate, Type type, UserOB user, String description, Date date, List<AttachmentOB> attachments) {
         super(id, techDate);
         this.type = type;
         this.user = user;

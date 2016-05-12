@@ -21,8 +21,8 @@ public interface ITicketRepository extends JpaRepository<TicketOB,Long> {
     List<TicketOB> findByType (Type type);
     @Query("SELECT t FROM TicketOB t WHERE t.user.id = ?1")
     List<TicketOB> findByUser (Long aId);
-    @Query("SELECT t FROM TicketOB t WHERE t.priority = ?1")
-    List<TicketOB> findByPriority (PriorityOB aPriorityOB);
+    @Query("SELECT t FROM TicketOB t WHERE t.priority.id = ?1")
+    List<TicketOB> findByPriority (Long aId);
     @Query("SELECT t FROM TicketOB t WHERE t.project.id = ?1")
     List<TicketOB> findByProject (Long aId);
 

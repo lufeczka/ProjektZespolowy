@@ -2,6 +2,7 @@ package com.uwm.projektz.binary.service.impl;
 
 import com.uwm.projektz.binary.converter.BinaryConverter;
 import com.uwm.projektz.binary.dto.BinaryDTO;
+import com.uwm.projektz.binary.dto.BinaryDTOId;
 import com.uwm.projektz.binary.ob.BinaryOB;
 import com.uwm.projektz.binary.repository.IBinaryRepository;
 import com.uwm.projektz.binary.service.IBinaryService;
@@ -23,9 +24,8 @@ public class BinaryServiceImpl implements IBinaryService {
     IBinaryRepository binaryRepository;
 
     @Override
-    public BinaryDTO saveBinary(BinaryDTO aBinaryDTO) {
-        binaryRepository.save(BinaryConverter.converterBinaryDTOtoOB(aBinaryDTO));
-        return aBinaryDTO;
+    public BinaryDTOId saveBinary(BinaryDTO aBinaryDTO) {
+        return BinaryConverter.converterBinaryOBtoBinaryDTOId(binaryRepository.save(BinaryConverter.converterBinaryDTOtoOB(aBinaryDTO)));
     }
 
     @Override

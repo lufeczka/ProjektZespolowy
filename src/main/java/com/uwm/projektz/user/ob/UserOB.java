@@ -37,6 +37,17 @@ public class UserOB extends BaseOB {
     public UserOB() {
     }
 
+    public UserOB(Long id, Date techDate, String name, String surname, String email, String login, Boolean active, RoleOB role, List<ProjectOB> projects, List<PermissionOB> permissions) {
+        super(id, techDate);
+        this.name = name;
+        this.surname = surname;
+        this.email = email;
+        this.login = login;
+        this.active = active;
+        this.role = role;
+        this.projects = projects;
+        this.permissions = permissions;
+    }
 
     public UserOB(String md5pass, String login, String email, String surname, String name) {
         this.md5pass = md5pass;

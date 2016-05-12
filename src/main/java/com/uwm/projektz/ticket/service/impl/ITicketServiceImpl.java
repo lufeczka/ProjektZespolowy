@@ -1,5 +1,6 @@
 package com.uwm.projektz.ticket.service.impl;
 
+import com.uwm.projektz.MyServerException;
 import com.uwm.projektz.attachment.converter.AttachmentConverter;
 import com.uwm.projektz.attachment.dto.AttachmentDTO;
 import com.uwm.projektz.attachment.ob.AttachmentOB;
@@ -11,20 +12,29 @@ import com.uwm.projektz.history.dto.HistoryDTO;
 import com.uwm.projektz.history.ob.HistoryOB;
 import com.uwm.projektz.priority.converter.PriorityConverter;
 import com.uwm.projektz.priority.dto.PriorityDTO;
+import com.uwm.projektz.priority.ob.PriorityOB;
+import com.uwm.projektz.priority.repository.IPriorityRepository;
 import com.uwm.projektz.project.dto.ProjectDTO;
+import com.uwm.projektz.project.ob.ProjectOB;
+import com.uwm.projektz.project.repository.IProjectRepository;
 import com.uwm.projektz.ticket.converter.TicketConverter;
 import com.uwm.projektz.ticket.dto.TicketDTO;
+import com.uwm.projektz.ticket.dto.TicketDTOWithoutHistoriesAttachments;
 import com.uwm.projektz.ticket.ob.TicketOB;
 import com.uwm.projektz.ticket.repository.ITicketRepository;
 import com.uwm.projektz.ticket.service.ITicketService;
 import com.uwm.projektz.user.dto.UserDTO;
+import com.uwm.projektz.user.ob.UserOB;
+import com.uwm.projektz.user.repository.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -38,10 +48,36 @@ public class ITicketServiceImpl implements ITicketService {
     @Autowired
     ITicketRepository ticketRepository;
 
+    @Autowired
+    IUserRepository userRepository;
+
+    @Autowired
+    IProjectRepository projectRepository;
+
+    @Autowired
+    IPriorityRepository priorityRepository;
+
     @Override
-    public TicketDTO saveTicket(TicketDTO aTicketDTO) {
-        ticketRepository.save(TicketConverter.converterTicketDTOtoOB(aTicketDTO));
-        return aTicketDTO;
+    public TicketDTO saveTicket(TicketDTOWithoutHistoriesAttachments aTicketDTO) throws MyServerException {
+        UserOB userOB = aTicketDTO.getUser() == null ? null : userRepository.findUserByLogin(aTicketDTO.getUser());
+        if(userOB == null) throw new MyServerException("User not found", HttpStatus.NOT_FOUND);
+        ProjectOB projectOB = aTicketDTO.getProject() == null ? null : projectRepository.findOne(aTicketDTO.getProject());
+        if(projectOB == null) throw new MyServerException("Project not found",HttpStatus.NOT_FOUND);
+        PriorityOB priorityOB = aTicketDTO.getPriority() == null ? null : priorityRepository.findOne(aTicketDTO.getPriority());
+        if(priorityOB == null) throw  new MyServerException("Priority not found",HttpStatus.NOT_FOUND);
+
+        TicketOB ticketOB = aTicketDTO.getId() == null ? null : ticketRepository.findOne(aTicketDTO.getId());
+        if(ticketOB == null){
+            ticketOB = new TicketOB(aTicketDTO.getKind(),aTicketDTO.getType(),aTicketDTO.getDescription(),userOB,priorityOB,projectOB,null,null);
+            return TicketConverter.converterTicketOBtoDTO(ticketRepository.save(ticketOB));
+        }
+        //gdy jest rozny od nulla istnieje
+        ticketOB.setTechDate(new Date());
+        ticketOB.setDescription(aTicketDTO.getDescription());
+        ticketOB.setType(aTicketDTO.getType());
+        ticketOB.setProject(projectOB);
+        ticketOB.setPriority(priorityOB);
+        return TicketConverter.converterTicketOBtoDTO( ticketRepository.save(ticketOB));
     }
 
     @Override
@@ -63,20 +99,20 @@ public class ITicketServiceImpl implements ITicketService {
     }
 
     @Override
-    public List<TicketDTO> findTicketsByUser(UserDTO aUserDTO) {
-        List<TicketOB> tickets = ticketRepository.findByUser(aUserDTO.getId());
+    public List<TicketDTO> findTicketsByUser(Long aId) {
+        List<TicketOB> tickets = ticketRepository.findByUser(aId);
         return TicketConverter.converterTicketListOBtoDTO(tickets);
     }
 
     @Override
-    public List<TicketDTO> findTicketsByPriority(PriorityDTO aPriorityDTO) {
-        List<TicketOB> tickets = ticketRepository.findByPriority(PriorityConverter.converterPriorityDTOtoOB(aPriorityDTO));
+    public List<TicketDTO> findTicketsByPriority(Long aId) {
+        List<TicketOB> tickets = ticketRepository.findByPriority(aId);
         return TicketConverter.converterTicketListOBtoDTO(tickets);
     }
 
     @Override
-    public List<TicketDTO> findTicketsByProjects(ProjectDTO aProjectDTO) {
-        List<TicketOB> tickets = ticketRepository.findByProject(aProjectDTO.getId());
+    public List<TicketDTO> findTicketsByProject(Long aId) {
+        List<TicketOB> tickets = ticketRepository.findByProject(aId);
         return TicketConverter.converterTicketListOBtoDTO(tickets);
     }
 

@@ -31,12 +31,12 @@ public class AttachmentConverter {
 //Attachment
     public static AttachmentDTO converterAttachmentOBtoDTO(AttachmentOB aAttachmentOB) {
         if (aAttachmentOB == null) return null;
-        return new AttachmentDTO(aAttachmentOB.getId(),aAttachmentOB.getTechDate(),aAttachmentOB.getType(),aAttachmentOB.getName(),aAttachmentOB.getFile_name(),aAttachmentOB.getMine_type(), BinaryConverter.converterBinaryOBtoDTO((aAttachmentOB.getBinary())), UserConverter.converterUserOBtoDTO(aAttachmentOB.getUser()));
+        return new AttachmentDTO(aAttachmentOB.getId(),aAttachmentOB.getTechDate(),aAttachmentOB.getType(),aAttachmentOB.getName(),aAttachmentOB.getFile_name(),aAttachmentOB.getMine_type(), BinaryConverter.converterBinaryOBtoDTO((aAttachmentOB.getBinary())), UserConverter.converterUserOBtoUserDTOMd5pass(aAttachmentOB.getUser()));
     }
 
     public static AttachmentOB converterAttachmentDTOtoOB(AttachmentDTO aAttachmentDTO){
         if (aAttachmentDTO == null) return null;
-        return new AttachmentOB(aAttachmentDTO.getId(),aAttachmentDTO.getTechDate(),aAttachmentDTO.getType(),aAttachmentDTO.getName(),aAttachmentDTO.getFile_name(),aAttachmentDTO.getMine_type(),BinaryConverter.converterBinaryDTOtoOB(aAttachmentDTO.getBinary()),UserConverter.converterUserDTOtoOB(aAttachmentDTO.getUser()));
+        return new AttachmentOB(aAttachmentDTO.getId(),aAttachmentDTO.getTechDate(),aAttachmentDTO.getType(),aAttachmentDTO.getName(),aAttachmentDTO.getFile_name(),aAttachmentDTO.getMine_type(),BinaryConverter.converterBinaryDTOtoOB(aAttachmentDTO.getBinary()),UserConverter.converterUserDTOWithoutMd5PassToUserOB(aAttachmentDTO.getUser()));
     }
 
 

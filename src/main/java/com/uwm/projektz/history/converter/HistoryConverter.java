@@ -31,12 +31,12 @@ public class HistoryConverter {
 //History
     public static HistoryDTO converterHistoryOBtoDTO(HistoryOB aHistoryOB){
         if (aHistoryOB == null) return null;
-        return new HistoryDTO(aHistoryOB.getId(),aHistoryOB.getTechDate(),aHistoryOB.getType(), UserConverter.converterUserOBtoDTO(aHistoryOB.getUser()),aHistoryOB.getDescription(),aHistoryOB.getDate(), AttachmentConverter.converterAttachmentListOBtoDTO(aHistoryOB.getAttachments()));
+        return new HistoryDTO(aHistoryOB.getId(),aHistoryOB.getTechDate(),aHistoryOB.getType(), UserConverter.converterUserOBtoUserDTOMd5pass(aHistoryOB.getUser()),aHistoryOB.getDescription(),aHistoryOB.getDate(), AttachmentConverter.converterAttachmentListOBtoDTO(aHistoryOB.getAttachments()));
     }
 
     public static HistoryOB converterHistoryDTOtoOB(HistoryDTO aHistoryDTO){
         if (aHistoryDTO == null) return null;
-        return new HistoryOB(aHistoryDTO.getId(),aHistoryDTO.getTechDate(),aHistoryDTO.getType(),UserConverter.converterUserDTOtoOB(aHistoryDTO.getUser()),aHistoryDTO.getDescription(),aHistoryDTO.getDate(),AttachmentConverter.converterAttachmentListDTOtoOB(aHistoryDTO.getAttachments()));
+        return new HistoryOB(aHistoryDTO.getId(),aHistoryDTO.getTechDate(),aHistoryDTO.getType(),UserConverter.converterUserDTOWithoutMd5PassToUserOB(aHistoryDTO.getUser()),aHistoryDTO.getDescription(),aHistoryDTO.getDate(),AttachmentConverter.converterAttachmentListDTOtoOB(aHistoryDTO.getAttachments()));
     }
 //HistoryList
     public static List<HistoryDTO> converterHistoryListOBtoDTO(List<HistoryOB> aHistoryOBList){

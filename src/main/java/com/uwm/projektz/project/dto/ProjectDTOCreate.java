@@ -13,12 +13,12 @@ public class ProjectDTOCreate implements Serializable{
     String name;
     String descritpion;
     String version;
-    PriorityDTOName priority;
+    String priority;
 
     public ProjectDTOCreate() {
     }
 
-    public ProjectDTOCreate(String name, String descritpion, String version, PriorityDTOName priority) {
+    public ProjectDTOCreate(String name, String descritpion, String version, String priority) {
         this.name = name;
         this.descritpion = descritpion;
         this.version = version;
@@ -49,11 +49,11 @@ public class ProjectDTOCreate implements Serializable{
         this.version = version;
     }
 
-    public PriorityDTOName getPriority() {
+    public String getPriority() {
         return priority;
     }
 
-    public void setPriority(PriorityDTOName priority) {
+    public void setPriority(String priority) {
         this.priority = priority;
     }
 }

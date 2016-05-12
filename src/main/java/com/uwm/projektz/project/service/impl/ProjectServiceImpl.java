@@ -41,7 +41,7 @@ public class ProjectServiceImpl implements IProjectService {
 
     @Override
     public ProjectDTO saveProject(ProjectDTOCreate aProjectDTO) throws MyServerException {
-        PriorityOB priorityOB = aProjectDTO.getPriority().getName() == null ? null : priorityRepository.findPriorityByName(aProjectDTO.getPriority().getName());
+        PriorityOB priorityOB = aProjectDTO.getPriority() == null ? null : priorityRepository.findPriorityByName(aProjectDTO.getPriority());
         if(priorityOB == null) throw new MyServerException("Priority not found", HttpStatus.NOT_FOUND);
         ProjectOB projectOB = aProjectDTO.getName() == null ? null : projectRepository.findProjectByName(aProjectDTO.getName());
         if(projectOB == null){

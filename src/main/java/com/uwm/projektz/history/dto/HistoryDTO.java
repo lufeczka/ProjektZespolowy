@@ -4,6 +4,7 @@ import com.uwm.projektz.attachment.dto.AttachmentDTO;
 import com.uwm.projektz.base.dto.BaseDTO;
 import com.uwm.projektz.enums.Type;
 import com.uwm.projektz.user.dto.UserDTO;
+import com.uwm.projektz.user.dto.UserDTOWithoutMd5Pass;
 import io.swagger.annotations.ApiModel;
 
 import java.util.Date;
@@ -16,7 +17,7 @@ import java.util.List;
 @ApiModel
 public class HistoryDTO extends BaseDTO {
     Type type;
-    UserDTO user;
+    UserDTOWithoutMd5Pass user;
     String description;
     Date date;
     List<AttachmentDTO> attachments;
@@ -24,7 +25,7 @@ public class HistoryDTO extends BaseDTO {
     public HistoryDTO() {
     }
 
-    public HistoryDTO(Long id, Date techDate, Type type, UserDTO user, String description, Date date, List<AttachmentDTO> attachments) {
+    public HistoryDTO(Long id, Date techDate, Type type, UserDTOWithoutMd5Pass user, String description, Date date, List<AttachmentDTO> attachments) {
         super(id, techDate);
         this.type = type;
         this.user = user;
@@ -33,12 +34,12 @@ public class HistoryDTO extends BaseDTO {
         this.attachments = attachments;
     }
 
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
+    public HistoryDTO(Type type, UserDTOWithoutMd5Pass user, String description, Date date, List<AttachmentDTO> attachments) {
+        this.type = type;
+        this.user = user;
+        this.description = description;
         this.date = date;
+        this.attachments = attachments;
     }
 
     public Type getType() {
@@ -49,11 +50,11 @@ public class HistoryDTO extends BaseDTO {
         this.type = type;
     }
 
-    public UserDTO getUser() {
+    public UserDTOWithoutMd5Pass getUser() {
         return user;
     }
 
-    public void setUser(UserDTO user) {
+    public void setUser(UserDTOWithoutMd5Pass user) {
         this.user = user;
     }
 
@@ -63,6 +64,14 @@ public class HistoryDTO extends BaseDTO {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public List<AttachmentDTO> getAttachments() {

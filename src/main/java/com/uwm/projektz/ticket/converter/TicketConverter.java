@@ -34,12 +34,12 @@ public class TicketConverter {
 //Ticket
     public static TicketDTO converterTicketOBtoDTO(TicketOB aTicketOB){
         if (aTicketOB == null) return null;
-        return new TicketDTO(aTicketOB.getId(),aTicketOB.getTechDate(),aTicketOB.getKind(),aTicketOB.getType(),aTicketOB.getDescription(), UserConverter.converterUserOBtoDTO(aTicketOB.getUser()), PriorityConverter.converterPriorityOBtoDTO(aTicketOB.getPriority()), ProjectConverter.converterProjectOBtoDTO(aTicketOB.getProject()), HistoryConverter.converterHistoryListOBtoDTO(aTicketOB.getHistories()), AttachmentConverter.converterAttachmentListOBtoDTO(aTicketOB.getAttachments()));
+        return new TicketDTO(aTicketOB.getId(),aTicketOB.getTechDate(),aTicketOB.getKind(),aTicketOB.getType(),aTicketOB.getDescription(), UserConverter.converterUserOBtoUserDTOMd5pass(aTicketOB.getUser()), PriorityConverter.converterPriorityOBtoDTO(aTicketOB.getPriority()), ProjectConverter.converterProjectOBtoDTO(aTicketOB.getProject()), HistoryConverter.converterHistoryListOBtoDTO(aTicketOB.getHistories()), AttachmentConverter.converterAttachmentListOBtoDTO(aTicketOB.getAttachments()));
     }
 
     public static TicketOB converterTicketDTOtoOB(TicketDTO aTicketDTO) {
         if (aTicketDTO == null) return null;
-        return new TicketOB(aTicketDTO.getId(), aTicketDTO.getTechDate(), aTicketDTO.getKind(), aTicketDTO.getType(), aTicketDTO.getDescription(), UserConverter.converterUserDTOtoOB(aTicketDTO.getUser()), PriorityConverter.converterPriorityDTOtoOB(aTicketDTO.getPriority()), ProjectConverter.converterProjectDTOtoOB(aTicketDTO.getProject()), HistoryConverter.converterHistoryListDTOtoOB(aTicketDTO.getHistories()), AttachmentConverter.converterAttachmentListDTOtoOB(aTicketDTO.getAttachments()));
+        return new TicketOB(aTicketDTO.getId(), aTicketDTO.getTechDate(), aTicketDTO.getKind(), aTicketDTO.getType(), aTicketDTO.getDescription(), UserConverter.converterUserDTOWithoutMd5PassToUserOB(aTicketDTO.getUser()), PriorityConverter.converterPriorityDTOtoOB(aTicketDTO.getPriority()), ProjectConverter.converterProjectDTOtoOB(aTicketDTO.getProject()), HistoryConverter.converterHistoryListDTOtoOB(aTicketDTO.getHistories()), AttachmentConverter.converterAttachmentListDTOtoOB(aTicketDTO.getAttachments()));
     }
 //TicketLists
     public static List<TicketDTO> converterTicketListOBtoDTO (List<TicketOB> aTicketListOB){

@@ -1,5 +1,6 @@
 package com.uwm.projektz.ticket.service;
 
+import com.uwm.projektz.MyServerException;
 import com.uwm.projektz.attachment.dto.AttachmentDTO;
 import com.uwm.projektz.enums.TicketType;
 import com.uwm.projektz.enums.Type;
@@ -7,6 +8,7 @@ import com.uwm.projektz.history.dto.HistoryDTO;
 import com.uwm.projektz.priority.dto.PriorityDTO;
 import com.uwm.projektz.project.dto.ProjectDTO;
 import com.uwm.projektz.ticket.dto.TicketDTO;
+import com.uwm.projektz.ticket.dto.TicketDTOWithoutHistoriesAttachments;
 import com.uwm.projektz.user.dto.UserDTO;
 
 import java.io.File;
@@ -18,7 +20,7 @@ import java.util.List;
 public interface ITicketService {
 
     //CREATE & UPDATE
-    TicketDTO saveTicket(TicketDTO aTicketDTO);
+    TicketDTO saveTicket(TicketDTOWithoutHistoriesAttachments aTicketDTO) throws MyServerException;
 
 
     //READ
@@ -26,9 +28,9 @@ public interface ITicketService {
     List<TicketDTO> findAll();
     List<TicketDTO> findByTicketsType(TicketType aKind);
     List<TicketDTO> findByType(Type aType);
-    List<TicketDTO> findTicketsByUser(UserDTO aUserDTO);
-    List<TicketDTO> findTicketsByPriority(PriorityDTO aPriorityDTO);
-    List<TicketDTO> findTicketsByProjects(ProjectDTO aProjectDTO);
+    List<TicketDTO> findTicketsByUser(Long aId);
+    List<TicketDTO> findTicketsByPriority(Long aId);
+    List<TicketDTO> findTicketsByProject(Long aId);
 
 
     //UPDATE

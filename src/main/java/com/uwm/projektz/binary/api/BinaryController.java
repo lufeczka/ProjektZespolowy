@@ -1,6 +1,7 @@
 package com.uwm.projektz.binary.api;
 
 import com.uwm.projektz.binary.dto.BinaryDTO;
+import com.uwm.projektz.binary.dto.BinaryDTOId;
 import com.uwm.projektz.binary.service.IBinaryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -38,7 +39,7 @@ public class BinaryController {
 //
     @RequestMapping(value ="/saveBinary", method = RequestMethod.POST,consumes ="application/json", produces = "application/json")
     @ResponseBody
-    public ResponseEntity<BinaryDTO> saveBinary(@RequestBody BinaryDTO aBinaryDTO){
+    public ResponseEntity<BinaryDTOId> saveBinary(@RequestBody BinaryDTO aBinaryDTO){
         return new ResponseEntity<>(binaryService.saveBinary(aBinaryDTO),HttpStatus.OK);
     }
 

@@ -1,6 +1,8 @@
 package com.uwm.projektz.history.api;
 
+import com.uwm.projektz.MyServerException;
 import com.uwm.projektz.history.dto.HistoryDTO;
+import com.uwm.projektz.history.dto.HistoryDTOWithoutAttachment;
 import com.uwm.projektz.history.service.IHistoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -58,8 +60,12 @@ public class HistoryController {
 
     @RequestMapping(value ="/saveHistory", method = RequestMethod.POST,consumes ="application/json", produces = "application/json")
     @ResponseBody
-    public ResponseEntity<HistoryDTO> saveHistory(@RequestBody HistoryDTO aHistory){
+    public ResponseEntity<HistoryDTO> saveHistory(@RequestBody HistoryDTOWithoutAttachment aHistory){
+        try{
         return new ResponseEntity<>(historyService.saveHistory(aHistory),HttpStatus.OK);
+        }catch (MyServerException e){
+            return new ResponseEntity<>(e.getHeaders(),e.getStatus());
+        }
     }
 
     @RequestMapping(value= "/removeHistoryById/{id}",method = RequestMethod.DELETE)

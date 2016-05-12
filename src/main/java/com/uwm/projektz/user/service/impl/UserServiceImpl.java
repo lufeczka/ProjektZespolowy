@@ -12,8 +12,7 @@ import com.uwm.projektz.project.repository.IProjectRepository;
 import com.uwm.projektz.role.ob.RoleOB;
 import com.uwm.projektz.role.repository.IRoleRepository;
 import com.uwm.projektz.user.converter.UserConverter;
-import com.uwm.projektz.user.dto.UserDTO;
-import com.uwm.projektz.user.dto.UserDTOCreate;
+import com.uwm.projektz.user.dto.*;
 import com.uwm.projektz.user.ob.UserOB;
 import com.uwm.projektz.user.repository.IUserRepository;
 import com.uwm.projektz.user.service.IUserService;
@@ -23,6 +22,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -49,74 +49,75 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public UserDTO findUserById(Long aId) {
-        return UserConverter.converterUserOBtoDTO(userRepository.findOne(aId));
+    public UserDTOWithoutMd5Pass findUserById(Long aId) {
+        return UserConverter.converterUserOBtoUserDTOMd5pass(userRepository.findOne(aId));
     }
 
     @Override
-    public List<UserDTO> findAllUsers() {
-        return UserConverter.converterUserListOBtoDTO(userRepository.findAll());
+    public List<UserDTOWithoutMd5Pass> findAllUsers() {
+        return UserConverter.converterListUserOBtoListUserDTOWithoutMd5pass(userRepository.findAll());
     }
 
     @Override
-    public List<UserDTO> findUsersByActivity(Boolean aActive) {
+    public List<UserDTOWithoutMd5Pass> findUsersByActivity(Boolean aActive) {
         List<UserOB> users = userRepository.findUserByActivity(aActive);
-        return UserConverter.converterUserListOBtoDTO(users);
+        return UserConverter.converterListUserOBtoListUserDTOWithoutMd5pass(users);
     }
 
     @Override
-    public UserDTO findUserByLogin(String aLogin) {
+    public UserDTOWithoutMd5Pass findUserByLogin(String aLogin) {
         UserOB user = userRepository.findUserByLogin(aLogin);
-        return UserConverter.converterUserOBtoDTO(user);
+        return UserConverter.converterUserOBtoUserDTOMd5pass(user);
     }
 
     @Override
-    public UserDTO findUserByEmail(String aEmail) {
+    public UserDTOWithoutMd5Pass findUserByEmail(String aEmail) {
         UserOB user = userRepository.findUserByEmail(aEmail);
-        return UserConverter.converterUserOBtoDTO(user);
+        return UserConverter.converterUserOBtoUserDTOMd5pass(user);
     }
 
     @Override
-    public List<UserDTO> findUsersByName(String aName) {
+    public List<UserDTOWithoutMd5Pass> findUsersByName(String aName) {
         List<UserOB> user = userRepository.findUserByName(aName);
-        return UserConverter.converterUserListOBtoDTO(user);
+        return UserConverter.converterListUserOBtoListUserDTOWithoutMd5pass(user);
     }
 
     @Override
-    public List<UserDTO> findUsersBySurname(String aSurname) {
+    public List<UserDTOWithoutMd5Pass> findUsersBySurname(String aSurname) {
         List<UserOB> user = userRepository.findUserBySurname(aSurname);
-        return UserConverter.converterUserListOBtoDTO(user);
+        return UserConverter.converterListUserOBtoListUserDTOWithoutMd5pass(user);
     }
 
     @Override
-    public List<UserDTO> findUsersByNameAndSurname(String aName, String aSurname) {
+    public List<UserDTOWithoutMd5Pass> findUsersByNameAndSurname(String aName, String aSurname) {
         List<UserOB> users = userRepository.findUserByNameAndSurname(aName,aSurname);
-        return UserConverter.converterUserListOBtoDTO(users);
+        return UserConverter.converterListUserOBtoListUserDTOWithoutMd5pass(users);
     }
 
     @Override
-    public List<UserDTO> findUsersByRole(String aRole) {
+    public List<UserDTOWithoutMd5Pass> findUsersByRole(String aRole) {
         List<UserOB> users = userRepository.findUserByRole(aRole);
-        return UserConverter.converterUserListOBtoDTO(users);
+        return UserConverter.converterListUserOBtoListUserDTOWithoutMd5pass(users);
     }
 
     @Override
-    public UserDTO saveUser(UserDTOCreate aUserDTO) {
+    public UserDTOWithoutMd5Pass saveUser(UserDTOCreate aUserDTO) {
         UserOB userOB = aUserDTO.getLogin() == null ? null : userRepository.findUserByLogin(aUserDTO.getLogin());
         if(userOB == null){
             //zapisz nowego usera
             userOB = new UserOB(aUserDTO.getName(),aUserDTO.getSurname(),aUserDTO.getEmail(),aUserDTO.getLogin(),aUserDTO.getMd5pass());
             userOB.setRole(roleRepository.findRoleByName("USER"));
+            userOB.setActive(true);
             userOB.setPermissions(null);
             userOB.setProjects(null);
 
-            return UserConverter.converterUserOBtoDTO(userRepository.save(userOB));
+            return UserConverter.converterUserOBtoUserDTOMd5pass(userRepository.save(userOB));
         }
         //w przeciwnym wypadku zmien edycja
-
-            userOB.setName(aUserDTO.getName());
-            userOB.setSurname(aUserDTO.getSurname());
-           return UserConverter.converterUserOBtoDTO(userRepository.save(userOB));
+        userOB.setTechDate(new Date());
+        userOB.setName(aUserDTO.getName());
+        userOB.setSurname(aUserDTO.getSurname());
+        return UserConverter.converterUserOBtoUserDTOMd5pass(userRepository.save(userOB));
 
 
     }
@@ -142,20 +143,19 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public void updatePermissionsListForUser(Long aId,List<PermissionDTO> aPermissionDTO) throws MyServerException {
-        UserOB user = userRepository.findOne(aId);
+    public UserDTO updatePermissionsListForUser(UserDTOPermissions aUserDTO) throws MyServerException {
+        UserOB user = aUserDTO.getId() == null ? null : userRepository.findOne(aUserDTO.getId());
         if(user == null) throw new MyServerException("User not found",HttpStatus.NOT_FOUND);
-        List<PermissionOB> permissions = PermissionConverter.converterPermissionListDTOtoOB(aPermissionDTO);
+        List<PermissionOB> permissions = PermissionConverter.converterPermissionListDTOtoOB(aUserDTO.getPermissions());
         user.setPermissions(permissions);
-        userRepository.save(user);
-
+        return UserConverter.converterUserOBtoDTO(userRepository.save(user));
     }
 
     @Override
-    public void updateProjectListForUser(Long aId, List<ProjectDTO> aProjectDTO) throws MyServerException {
-        UserOB user = userRepository.findOne(aId);
+    public void updateProjectListForUser(UserDTOProjects aUserDTO) throws MyServerException {
+        UserOB user = userRepository.findOne(aUserDTO.getId());
         if(user == null) throw new MyServerException("User not found",HttpStatus.NOT_FOUND);
-        List<ProjectOB> projects = ProjectConverter.converterProjectListDTOtoOB(aProjectDTO);
+        List<ProjectOB> projects = ProjectConverter.converterProjectListDTOtoOB(aUserDTO.getProjects());
         user.setProjects(projects);
         userRepository.save(user);
     }
