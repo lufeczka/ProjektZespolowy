@@ -28,10 +28,18 @@ public class UserOB extends BaseOB {
     @JoinColumn(name = "ROLE_ID", referencedColumnName = "ID")
     RoleOB role;
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "PROJECT_ID", referencedColumnName = "ID")
+    @JoinTable(
+            name = "USER_PROJECT",
+            joinColumns = @JoinColumn(name ="USER_ID", referencedColumnName = "ID"),
+            inverseJoinColumns = @JoinColumn(name = "PROJECT_ID",referencedColumnName = "ID")
+    )
     List<ProjectOB> projects = new ArrayList<>();
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "USER_ID", referencedColumnName = "ID")
+    @JoinTable(
+            name = "USER_PERMISSION",
+            joinColumns = @JoinColumn(name ="USER_ID",referencedColumnName = "ID"),
+            inverseJoinColumns = @JoinColumn(name = "PERMISSION_ID",referencedColumnName = "ID")
+    )
     List<PermissionOB> permissions = new ArrayList<>();
 
     public UserOB() {
@@ -49,12 +57,12 @@ public class UserOB extends BaseOB {
         this.permissions = permissions;
     }
 
-    public UserOB(String md5pass, String login, String email, String surname, String name) {
-        this.md5pass = md5pass;
-        this.login = login;
-        this.email = email;
-        this.surname = surname;
+    public UserOB(String name, String surname, String email, String login, String md5pass) {
         this.name = name;
+        this.surname = surname;
+        this.email = email;
+        this.login = login;
+        this.md5pass = md5pass;
     }
 
     public UserOB(String name, String surname, String email, String login, String md5pass, Boolean active, RoleOB role, List<ProjectOB> projects, List<PermissionOB> permissions) {
