@@ -19,11 +19,6 @@ public abstract class BaseOB implements Serializable{
 
     public BaseOB(){}
 
-    public BaseOB(Long id, Date techDate) {
-        this.id = id;
-        this.techDate = techDate;
-    }
-
     public Long getId() {
         return id;
     }
